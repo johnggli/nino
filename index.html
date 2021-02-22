@@ -1,25 +1,26 @@
 <html>
 	<head>
 		<title>AI Chat Bot By John Emerson</title>
-		<script src="https://unpkg.com/brain.js@1.0.0-rc.3/browser.js"></script>
-		<script type="text/javascript" src="js/scripts.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/styles.css">
-
-		<!-- The core Firebase JS SDK is always required and must be listed first -->
-		<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
-		<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-database.js"></script>
 	</head>
 	<body>
 		<textarea maxlength="28" placeholder="Ask the bot anything!" id="textBox"></textarea>
 		<button id="chatButton">Chat</button>
 		<div id="trainArea">
-		<div id="confirmation">Was my answer good?</div>
-		</br>
-		<button class="button" id="noButton">No</button>
-		<button class="button" id="yesButton">Yes</button>
-		</br>
-		<textarea placeholder="Type a good response" id="helpBox"></textarea></br>
-		<button class="button" id="helpButton">Train AI</button>
-</div>
+			<div id="confirmation">Was my answer good?</div>
+			</br>
+			<button class="button" id="noButton">No</button>
+			<button class="button" id="yesButton">Yes</button>
+			</br>
+			<textarea placeholder="Type a good response" id="helpBox"></textarea></br>
+			<button class="button" id="helpButton">Train AI</button>
+		</div>
+
+		<script src="https://unpkg.com/brain.js@1.0.0-rc.3/browser.js"></script>
+		<script type="text/javascript" src="js/scripts.js"></script>
+		
+		<!-- The core Firebase JS SDK is always required and must be listed first -->
+		<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-database.js"></script>
 	</body>
 </html>

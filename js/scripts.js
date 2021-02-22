@@ -24,14 +24,26 @@ window.addEventListener('load', function() {
 
 
 
+	// var botTalk = [];
+	// firebase.database().ref("botTalk").once('value', function(snapshot) {
+	// 	snapshot.forEach(function(childSnapshot) {
+	// 		var childData = childSnapshot.val();
+	// 		botTalk.push(Object.values(childData));
+	// 	});
+	// });
+	
+	// var botTalk = ["Hello! I hope you have a good day!", "I am fine, thanks!", "I have no name, but my creators name is Nino"];
+
+
 	var botTalk = [];
-	firebase.database().ref("botTalk").once('value', function(snapshot) {
+	firebase.database().ref("botTalk").on('value', function(snapshot) {
 		snapshot.forEach(function(childSnapshot) {
 			var childData = childSnapshot.val();
-			botTalk.push(Object.values(childData));
+			botTalk.push(childData);
 		});
-	});
 
+		console.log(botTalk)
+	});
 
 
 
@@ -95,11 +107,20 @@ window.addEventListener('load', function() {
 	//***********Machine learning**************
 	var net = new brain.NeuralNetwork();
 	var trainData = [];
-	var trainData2 = [];
 	var maxLength = 0;
 	var remainingLength = 0;
 	var newInput;
 	var commands = 7;
+
+	// ref = firebase.database().ref('botTalk');
+	// ref.push().set("ola turubom");
+	// ref = firebase.database().ref('trainData');
+	// ref.push().set({ input: [1,0,0,0,1,1,1,1,0,0,0,1,0,0,1,0,1,1,0,0,0], output: {[1]: 1} });
+
+	// var postListRef = firebase.database().ref('botTalk');
+	// postListRef.push().set({
+	// 	chama: "Hello! I hope you have a good day!"
+	// });
 
 	// var postListRef = firebase.database().ref('trainData');
 	// postListRef.push().set({
@@ -124,29 +145,33 @@ window.addEventListener('load', function() {
 	// });
 
 
-	var ref = firebase.database().ref("trainData")
+	// var ref = firebase.database().ref("trainData")
 
-	function getData1() {
-		var data = []
+	// trainData = ref.once('value', function(snapshot) {
+	// 	return snapshot.val()
+	// })
 
-		ref.once('value', function(snapshot) {
-			snapshot.forEach(function(childSnapshot) {
-				var childData = childSnapshot.val();
-				childData.output = childData.output.reduce((accumulator, currentValue) => {
-					accumulator[currentValue] = currentValue;
-					return accumulator;
-				}, {});
-				data.push({ input: [1,0,0,0,1,1,1,1,0,0,1,0,0,0], output: {[1]: 1} });
-			});
-		})
+	// function getData1() {
+	// 	var data = []
 
-		return data
-	}
+	// 	ref.once('value', function(snapshot) {
+	// 		snapshot.forEach(function(childSnapshot) {
+	// 			var childData = childSnapshot.val();
+	// 			childData.output = childData.output.reduce((accumulator, currentValue) => {
+	// 				accumulator[currentValue] = currentValue;
+	// 				return accumulator;
+	// 			}, {});
+	// 			data.push({ input: [1,0,0,0,1,1,1,1,0,0,1,0,0,0], output: {[1]: 1} });
+	// 		});
+	// 	})
 
-	async function getData() {
-		var result = await getData1()
-		return result
-	}
+	// 	return data
+	// }
+
+	// async function getData() {
+	// 	var result = await getData1()
+	// 	return result
+	// }
 
 	// async function gotData(data) {
 	// 	var trains = data.val()
@@ -162,8 +187,8 @@ window.addEventListener('load', function() {
 	// }
 
 	//Greeting
-	trainData2.push({ input: [1,0,0,0,1,1,1,1,0,0,1,0,0,0], output: {[1]: 1} }); //HI
-	trainData2.push({ input: [1,0,0,0,1,1,1,1,0,0,0,1,0,0,1,0,1,1,0,0,0], output: {[1]: 1} }); //HEY
+	// trainData.push({ input: [1,0,0,0,1,1,1,1,0,0,1,0,0,0], output: {[1]: 1} }); //HI
+	// trainData.push({ input: [1,0,0,0,1,1,1,1,0,0,0,1,0,0,1,0,1,1,0,0,0], output: {[1]: 1} }); //HEY
 	// trainData.push({ input: [1,0,0,0,1,1,1,1,0,0,0,1,0,0,1,0,0,1,0,1,1,1,0,0,1,0,1,1,1,0,0,1,1,1,0], output: {[1]: 1} }); //HELLO
 	// trainData.push({ input: [1,0,1,1,0,0,0,1,0,0,1,1,1,0], output: {[1]: 1} }); //Yo 
 																														
@@ -194,107 +219,114 @@ window.addEventListener('load', function() {
 	// trainData.push({ input: [1,0,0,0,0,0,0,1,0,1,0,0,0,1,1,0,0,0,1,0,0,1,0,1,1,0,0,0,1,0,0,1,1,1,0,1,0,1,0,1,0,0,1,0,0,0,1,1,1,1,0,1,0,1,0,0,1,0,0,1,1,0,0,1,0,0,0,0,0,0,1,0,0,1,1,0,1,1,1,1,1,1,1,1], output: {[6]: 1} }); //Are you human?
 	// trainData.push({ input: [1,0,0,0,1,1,1,1,0,1,0,1,0,0,1,0,0,1,1,0,0,1,0,0,0,0,0,0,1,0,0,1,1,0,1,1,1,1,1,1,1,1], output: {[6]: 1} }); //human?
 
-	console.log(getData());
-	console.log(trainData2);
+	firebase.database().ref("trainData").on('value', function(snapshot) {
+		snapshot.forEach(function(childSnapshot) {
+			var childData = childSnapshot.val();
+			// childData.output = childData.output.reduce((accumulator, currentValue) => {
+			// 	accumulator[currentValue] = currentValue;
+			// 	return accumulator;
+			// }, {});
+			console.log('childata antes do push', childData)
+			trainData.push(childData);
+		});
 
-	//Commands to fill up the arrays with zeros. All arrays must be of same length
-	for (j=0;j<trainData.length;j++){
-		if (trainData[j].input.length > maxLength){
-			maxLength = trainData[j].input.length;
+		console.log(trainData)
+		console.log('length do bottalk dentro do traindata', botTalk.length)
+	
+		//Commands to fill up the arrays with zeros. All arrays must be of same length
+		for (j=0;j<trainData.length;j++){
+			if (trainData[j].input.length > maxLength){
+				maxLength = trainData[j].input.length;
+			}
 		}
-	}
-	for (q=0;q<trainData.length;q++){
-		if (trainData[q].input.length < maxLength){
-			remainingLength = maxLength - trainData[q].input.length;
-			zeroArray = Array(remainingLength).fill(0);
-			trainData[q].input = trainData[q].input.concat(zeroArray);
+		for (q=0;q<trainData.length;q++){
+			if (trainData[q].input.length < maxLength){
+				remainingLength = maxLength - trainData[q].input.length;
+				zeroArray = Array(remainingLength).fill(0);
+				trainData[q].input = trainData[q].input.concat(zeroArray);
+			}
 		}
-	}
-
-	//Training
-	net.train(trainData, {
-		log: false,
-		logPeriod: 10,
-		errorThresh: 0.0005,
-	}); //Using all the training data to train the AI
-
-
-	//Chat button
-	chat.addEventListener("click",function(){
-		if (txt.value != ""){
-			newDiv("green",txt.value);
-			var data = textToBinary(txt.value);
-				var result = brain.likely(data, net);
-				for (k=1;k<=botTalk.length;k++){
-					if (result == k){
-						delayVar=k;
-						setTimeout(function(){
-							newDiv("orange",botTalk[delayVar-1]);
-							trainingArea.style.display="inline";
-						},800);
-					}
-				}
-			help.style.display = "none";
-			helpBtn.style.display = "none";
-
-			// var key = firebase.database().ref("firebaseData").push().key;
-			// var message = {
-			// 	key: key,
-			// 	text: txt.value
-			// };
-
-			// var updates = {};
-			// updates["/firebaseData/" + key] = message;
-			// firebase.database().ref().update(updates);
-			
-			// trainData = [];
-    	// firebase.database().ref("firebaseData").once('value', function(snapshot) {
-      // 	snapshot.forEach(function(childSnapshot) {
-			// 		var childData = childSnapshot.val();
-			// 		trainData.push(Object.values(childData));
-      // 	});
-      // });
-		}
-	});
-
-	yes.addEventListener("click", function(){
-		alert("Sweet!");
-		txt.value="";
-		help.style.display = "none";
-		helpBtn.style.display = "none";
-		trainingArea.style.display="none";
-	})
-
-	no.addEventListener("click", function(){
-		alert("Oh, I am sorry! What would be a good response to your input?");
-		divArr[divArr.length-1].style.backgroundColor="#ff6666"
-		help.style.display = "inline";
-		helpBtn.style.display = "inline";
-	})
-
-	helpBtn.addEventListener("click", function(){
-		trainingArea.style.display="none";
-		botTalk.push(help.value);
-		newInput = textToBinary(txt.value);
-		trainData.push({ input: newInput, output: {[commands]: 1} }); //user training data
-		commands = commands+1;
-
-		net = new brain.NeuralNetwork();
-
-		//Training the AI
+	
+		//Training
 		net.train(trainData, {
 			log: false,
 			logPeriod: 10,
 			errorThresh: 0.0005,
+		}); //Using all the training data to train the AI
+	
+	
+		//Chat button
+		chat.addEventListener("click",function(){
+			if (txt.value != ""){
+				newDiv("green",txt.value);
+				var data = textToBinary(txt.value);
+					var result = brain.likely(data, net);
+					for (k=1;k<=botTalk.length;k++){
+						if (result == k){
+							delayVar=k;
+							setTimeout(function(){
+								newDiv("orange",botTalk[delayVar-1]);
+								trainingArea.style.display="inline";
+							},800);
+						}
+					}
+				help.style.display = "none";
+				helpBtn.style.display = "none";
+			}
 		});
+	
+		yes.addEventListener("click", function(){
+			alert("Sweet!");
+			txt.value="";
+			help.style.display = "none";
+			helpBtn.style.display = "none";
+			trainingArea.style.display="none";
+		})
+	
+		no.addEventListener("click", function(){
+			alert("Oh, I am sorry! What would be a good response to your input?");
+			divArr[divArr.length-1].style.backgroundColor="#ff6666"
+			help.style.display = "inline";
+			helpBtn.style.display = "inline";
+		})
+	
+		helpBtn.addEventListener("click", function(){
+			trainingArea.style.display="none";
+			// botTalk.push(help.value);
 
-		alert("Alright! Thanks for making me smarter!");
+			newInput = textToBinary(txt.value);
+			// trainData.push({ input: newInput, output: {[commands]: 1} }); //user training data
 
-		txt.value="";
-		help.value="";
-		help.style.display = "none";
-		helpBtn.style.display = "none";
+			ref = firebase.database().ref('trainData');
+			ref.push().set({ input: newInput, output: {[botTalk.length + 1]: 1} });
+			// trainData = []
+
+			ref = firebase.database().ref('botTalk');
+			ref.push().set(help.value);
+			// botTalk = []
+
+			// commands = commands+1;
+	
+			net = new brain.NeuralNetwork();
+	
+			//Training the AI
+			// net.train(trainData, {
+			// 	log: false,
+			// 	logPeriod: 10,
+			// 	errorThresh: 0.0005,
+			// });
+	
+			alert("Alright! Thanks for making me smarter!");
+	
+			txt.value="";
+			help.value="";
+			help.style.display = "none";
+			helpBtn.style.display = "none";
+
+			location.reload();
+		});
 	});
+
 
 	function textToBinary(text){
 		//Storing all letters as binary numbers for AI
@@ -396,4 +428,5 @@ window.addEventListener('load', function() {
 		}
 		return data;
 	}
+
 });
