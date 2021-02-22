@@ -37,6 +37,7 @@ window.addEventListener('load', function() {
 
 	var botTalk = [];
 	firebase.database().ref("botTalk").on('value', function(snapshot) {
+		botTalk = [];
 		snapshot.forEach(function(childSnapshot) {
 			var childData = childSnapshot.val();
 			botTalk.push(childData);
@@ -220,6 +221,7 @@ window.addEventListener('load', function() {
 	// trainData.push({ input: [1,0,0,0,1,1,1,1,0,1,0,1,0,0,1,0,0,1,1,0,0,1,0,0,0,0,0,0,1,0,0,1,1,0,1,1,1,1,1,1,1,1], output: {[6]: 1} }); //human?
 
 	firebase.database().ref("trainData").on('value', function(snapshot) {
+		trainData = [];
 		snapshot.forEach(function(childSnapshot) {
 			var childData = childSnapshot.val();
 			// childData.output = childData.output.reduce((accumulator, currentValue) => {
@@ -310,11 +312,11 @@ window.addEventListener('load', function() {
 			net = new brain.NeuralNetwork();
 	
 			//Training the AI
-			// net.train(trainData, {
-			// 	log: false,
-			// 	logPeriod: 10,
-			// 	errorThresh: 0.0005,
-			// });
+			net.train(trainData, {
+				log: false,
+				logPeriod: 10,
+				errorThresh: 0.0005,
+			});
 	
 			alert("Alright! Thanks for making me smarter!");
 	
@@ -323,7 +325,11 @@ window.addEventListener('load', function() {
 			help.style.display = "none";
 			helpBtn.style.display = "none";
 
-			location.reload();
+			console.log('a galera toda depois do alert de thanks:')
+			console.log('bottalk', botTalk)
+			console.log('trainData', trainData)
+
+			// location.reload();
 		});
 	});
 
