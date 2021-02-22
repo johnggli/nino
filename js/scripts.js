@@ -257,80 +257,80 @@ window.addEventListener('load', function() {
 		}); //Using all the training data to train the AI
 	
 	
-		//Chat button
-		chat.addEventListener("click",function(){
-			if (txt.value != ""){
-				newDiv("green",txt.value);
-				var data = textToBinary(txt.value);
-					var result = brain.likely(data, net);
-					for (k=1;k<=botTalk.length;k++){
-						if (result == k){
-							delayVar=k;
-							setTimeout(function(){
-								newDiv("orange",botTalk[delayVar-1]);
-								trainingArea.style.display="inline";
-							},800);
-						}
+	});
+	//Chat button
+	chat.addEventListener("click",function(){
+		if (txt.value != ""){
+			newDiv("green",txt.value);
+			var data = textToBinary(txt.value);
+				var result = brain.likely(data, net);
+				for (k=1;k<=botTalk.length;k++){
+					if (result == k){
+						delayVar=k;
+						setTimeout(function(){
+							newDiv("orange",botTalk[delayVar-1]);
+							trainingArea.style.display="inline";
+						},800);
 					}
-				help.style.display = "none";
-				helpBtn.style.display = "none";
-			}
-		});
-	
-		yes.addEventListener("click", function(){
-			alert("Sweet!");
-			txt.value="";
+				}
 			help.style.display = "none";
 			helpBtn.style.display = "none";
-			trainingArea.style.display="none";
-		})
-	
-		no.addEventListener("click", function(){
-			alert("Oh, I am sorry! What would be a good response to your input?");
-			divArr[divArr.length-1].style.backgroundColor="#ff6666"
-			help.style.display = "inline";
-			helpBtn.style.display = "inline";
-		})
-	
-		helpBtn.addEventListener("click", function(){
-			trainingArea.style.display="none";
-			// botTalk.push(help.value);
+		}
+	});
 
-			newInput = textToBinary(txt.value);
-			// trainData.push({ input: newInput, output: {[commands]: 1} }); //user training data
+	yes.addEventListener("click", function(){
+		alert("Sweet!");
+		txt.value="";
+		help.style.display = "none";
+		helpBtn.style.display = "none";
+		trainingArea.style.display="none";
+	})
 
-			ref = firebase.database().ref('trainData');
-			ref.push().set({ input: newInput, output: {[botTalk.length + 1]: 1} });
-			// trainData = []
+	no.addEventListener("click", function(){
+		alert("Oh, I am sorry! What would be a good response to your input?");
+		divArr[divArr.length-1].style.backgroundColor="#ff6666"
+		help.style.display = "inline";
+		helpBtn.style.display = "inline";
+	})
 
-			ref = firebase.database().ref('botTalk');
-			ref.push().set(help.value);
-			// botTalk = []
+	helpBtn.addEventListener("click", function(){
+		trainingArea.style.display="none";
+		// botTalk.push(help.value);
 
-			// commands = commands+1;
-	
-			net = new brain.NeuralNetwork();
-	
-			//Training the AI
-			net.train(trainData, {
-				log: false,
-				logPeriod: 10,
-				errorThresh: 0.0005,
-			});
-	
-			alert("Alright! Thanks for making me smarter!");
-	
-			txt.value="";
-			help.value="";
-			help.style.display = "none";
-			helpBtn.style.display = "none";
+		newInput = textToBinary(txt.value);
+		// trainData.push({ input: newInput, output: {[commands]: 1} }); //user training data
 
-			console.log('a galera toda depois do alert de thanks:')
-			console.log('bottalk', botTalk)
-			console.log('trainData', trainData)
+		ref = firebase.database().ref('trainData');
+		ref.push().set({ input: newInput, output: {[botTalk.length + 1]: 1} });
+		// trainData = []
 
-			// location.reload();
+		ref = firebase.database().ref('botTalk');
+		ref.push().set(help.value);
+		// botTalk = []
+
+		// commands = commands+1;
+
+		net = new brain.NeuralNetwork();
+
+		//Training the AI
+		net.train(trainData, {
+			log: false,
+			logPeriod: 10,
+			errorThresh: 0.0005,
 		});
+
+		alert("Alright! Thanks for making me smarter!");
+
+		txt.value="";
+		help.value="";
+		help.style.display = "none";
+		helpBtn.style.display = "none";
+
+		console.log('a galera toda depois do alert de thanks:')
+		console.log('bottalk', botTalk)
+		console.log('trainData', trainData)
+
+		// location.reload();
 	});
 
 
