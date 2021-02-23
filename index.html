@@ -1,8 +1,65 @@
-<html>
-	<head>
-		<title>AI Chat Bot By John Emerson</title>
-		<link rel="stylesheet" type="text/css" href="css/styles.css">
-	</head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/styles.css" type="text/css">
+
+	<title>Nino - AI Chatbot</title>
+
+</head>
+<body>
+	<div class="chat_window">
+		<div class="top_menu">
+			<div class="buttons">
+				<div class="button close"></div>
+				<!-- <div class="button minimize"></div> -->
+				<div class="button maximize"></div>
+			</div>
+			<div class="title">Chat</div>
+		</div>
+		<ul class="messages"></ul>
+		<div class="bottom_wrapper clearfix">
+			<div class="message_input_wrapper">
+				<input class="message_input" id="textBox" placeholder="Type your message here..." />
+			</div>
+			<div class="send_message" id="chatButton">
+				<div class="icon"></div>
+				<div class="text">Send</div>
+			</div>
+		</div>
+	</div>
+	<div class="message_template">
+		<li class="message">
+			<div class="avatar"></div>
+			<div class="text_wrapper">
+				<div class="text"></div>
+			</div>
+		</li>
+	</div>
+
+	<div id="trainArea">
+		<div id="confirmation">Was my answer good?</div>
+		</br>
+		<button class="button" id="noButton">No</button>
+		<button class="button" id="yesButton">Yes</button>
+		</br>
+		<textarea placeholder="Type a good response" id="helpBox"></textarea></br>
+		<button class="button" id="helpButton">Train AI</button>
+	</div>
+
+	<!-- JavaScript -->
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="https://unpkg.com/brain.js@2.0.0-beta.2/dist/brain-browser.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-database.js"></script>
+	<script type="text/javascript" src="js/scripts.js"></script>
+</body>
+</html>
+
+<!-- <html>
 	<body>
 		<textarea maxlength="28" placeholder="Ask the bot anything!" id="textBox"></textarea>
 		<button id="chatButton">Chat</button>
@@ -16,11 +73,9 @@
 			<button class="button" id="helpButton">Train AI</button>
 		</div>
 
-		<script src="https://unpkg.com/brain.js@1.0.0-rc.3/browser.js"></script>
+		<script src="https://unpkg.com/brain.js@2.0.0-beta.2/dist/brain-browser.min.js"></script>
 		<script type="text/javascript" src="js/scripts.js"></script>
-		
-		<!-- The core Firebase JS SDK is always required and must be listed first -->
 		<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
 		<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-database.js"></script>
 	</body>
-</html>
+</html> -->

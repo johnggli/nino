@@ -1,4 +1,5 @@
 window.addEventListener('load', function() {
+
 	var firebaseConfig = {
 		apiKey: "AIzaSyD5WPrxLPtaJfCju56pxhu6r8sGYDn7tc8",
 		authDomain: "nino-ff8f0.firebaseapp.com",
@@ -16,27 +17,22 @@ window.addEventListener('load', function() {
 	var no = document.getElementById("noButton");
 	var yes = document.getElementById("yesButton");
 	var txt = document.getElementById("textBox");
+	var confirm = document.getElementById("confirmation");
 	var help = document.getElementById("helpBox");
 	var helpBtn = document.getElementById("helpButton");
 	var trainingArea = document.getElementById("trainArea");
 
-	// var Message;
-	// Message = function (arg) {
-	// 	(this.text = arg.text), (this.message_side = arg.message_side);
-	// 	this.draw = (function (_this) {
-	// 		return function () {
-	// 			var $message;
-	// 			$message = $($(".message_template").clone().html());
-	// 			$message.addClass(_this.message_side).find(".text").html(_this.text);
-	// 			$(".messages").append($message);
-	// 			return setTimeout(function () {
-	// 				return $message.addClass("appeared");
-	// 			}, 0);
-	// 		};
-	// 	})(this);
-	// 	return this;
-	// };
 
+
+	// var botTalk = [];
+	// firebase.database().ref("botTalk").once('value', function(snapshot) {
+	// 	snapshot.forEach(function(childSnapshot) {
+	// 		var childData = childSnapshot.val();
+	// 		botTalk.push(Object.values(childData));
+	// 	});
+	// });
+	
+	// var botTalk = ["Hello! I hope you have a good day!", "I am fine, thanks!", "I have no name, but my creators name is Nino"];
 
 
 	var botTalk = [];
@@ -115,11 +111,123 @@ window.addEventListener('load', function() {
 	var maxLength = 0;
 	var remainingLength = 0;
 	var newInput;
+	var commands = 7;
+
+	// ref = firebase.database().ref('botTalk');
+	// ref.push().set("ola turubom");
+	// ref = firebase.database().ref('trainData');
+	// ref.push().set({ input: [1,0,0,0,1,1,1,1,0,0,0,1,0,0,1,0,1,1,0,0,0], output: {[1]: 1} });
+
+	// var postListRef = firebase.database().ref('botTalk');
+	// postListRef.push().set({
+	// 	chama: "Hello! I hope you have a good day!"
+	// });
+
+	// var postListRef = firebase.database().ref('trainData');
+	// postListRef.push().set({
+	// 	input: [1,0,0,0,1,1,1,1,0,0,1,0,0,0], output: {[1]: 1}
+	// });
+	// postListRef.push().set({
+	// 	input: [1,0,0,0,1,1,1,1,0,0,0,1,0,0,1,0,1,1,0,0,0], output: {[1]: 1}
+	// });
+
+	// firebase.database().ref("trainData").once('value', function(snapshot) {
+	// 	var trainData3 = [];
+	// 	snapshot.forEach(function(childSnapshot) {
+	// 		var childData = childSnapshot.val();
+	// 		childData.output = childData.output.reduce((accumulator, currentValue) => {
+	// 			accumulator[currentValue] = currentValue;
+	// 			return accumulator;
+	// 		}, {});
+	// 		trainData3.push({ input: [1,0,0,0,1,1,1,1,0,0,1,0,0,0], output: {[1]: 1} });
+	// 	});
+	// 	trainData = trainData3
+	// 	console.log('trainData3', trainData3)
+	// });
+
+
+	// var ref = firebase.database().ref("trainData")
+
+	// trainData = ref.once('value', function(snapshot) {
+	// 	return snapshot.val()
+	// })
+
+	// function getData1() {
+	// 	var data = []
+
+	// 	ref.once('value', function(snapshot) {
+	// 		snapshot.forEach(function(childSnapshot) {
+	// 			var childData = childSnapshot.val();
+	// 			childData.output = childData.output.reduce((accumulator, currentValue) => {
+	// 				accumulator[currentValue] = currentValue;
+	// 				return accumulator;
+	// 			}, {});
+	// 			data.push({ input: [1,0,0,0,1,1,1,1,0,0,1,0,0,0], output: {[1]: 1} });
+	// 		});
+	// 	})
+
+	// 	return data
+	// }
+
+	// async function getData() {
+	// 	var result = await getData1()
+	// 	return result
+	// }
+
+	// async function gotData(data) {
+	// 	var trains = data.val()
+	// 	var keys = Object.keys(trains)
+
+	// 	for (var i = 0; i < keys.length; i++) {
+	// 		console.log('entrous', i)
+	// 	}
+	// }
+
+	// function errData(err) {
+	// 	console.log(err)
+	// }
+
+	//Greeting
+	// trainData.push({ input: [1,0,0,0,1,1,1,1,0,0,1,0,0,0], output: {[1]: 1} }); //HI
+	// trainData.push({ input: [1,0,0,0,1,1,1,1,0,0,0,1,0,0,1,0,1,1,0,0,0], output: {[1]: 1} }); //HEY
+	// trainData.push({ input: [1,0,0,0,1,1,1,1,0,0,0,1,0,0,1,0,0,1,0,1,1,1,0,0,1,0,1,1,1,0,0,1,1,1,0], output: {[1]: 1} }); //HELLO
+	// trainData.push({ input: [1,0,1,1,0,0,0,1,0,0,1,1,1,0], output: {[1]: 1} }); //Yo 
+																														
+	// //How are you?
+	// trainData.push({ input: [1,0,0,0,1,1,1,1,0,0,1,1,1,0,1,0,1,0,1,1,0,1,0,0,0,0,0,0,1,0,1,0,0,0,1,1,0,0,0,1,0,0,1,0,1,1,0,0,0,1,0,0,1,1,1,0,1,0,1,0,1,0,0,1,1,1,1,1,1,1], output: {[2]: 1} }); //How are you?
+
+	// trainData.push({ input: [1,0,0,0,0,0,0,1,0,1,0,0,0,1,1,0,0,0,1,0,0,1,0,1,1,0,0,0,1,0,0,1,1,1,0,1,0,1,0,1,0,0,1,0,0,1,1,1,0,1,0,0,1,0,1,0,1,1,1,1,1,1,1], output: {[2]: 1} }); //Are you ok?
+
+	// //What is your name?
+	// trainData.push({ input: [1,0,1,0,1,1,0,1,0,0,0,1,1,1,1,0,0,0,0,0,0,1,0,1,0,0,1,1,1,0,0,1,0,0,0,1,0,1,0,0,1,0,1,0,1,1,0,0,0,1,0,0,1,1,1,0,1,0,1,0,1,0,0,1,0,1,0,0,0,1,1,0,0,1,1,0,1,1,0,0,0,0,0,0,1,0,0,1,1,0,0,1,0,0,0,1,0,0,1,1,1,1,1,1,1], output: {[3]: 1} }); //What is your name?
+	// trainData.push({ input: [1,0,1,0,1,1,0,1,0,0,0,1,1,1,1,0,0,0,0,0,0,1,0,1,0,0,1,1,1,0,1,0,0,1,0,1,0,1,1,0,0,0,1,0,0,1,1,1,0,1,0,1,0,1,0,0,1,0,1,0,0,0,1,1,0,0,1,1,0,1,1,0,0,0,0,0,0,1,0,0,1,1,0,0,1,0,0,0,1,0,0,1,1,1,1,1,1,1], output: {[3]: 1} }); //Whats your name?
+	// trainData.push({ input: [1,0,1,0,1,1,0,1,0,0,0,1,1,1,1,0,0,0,0,0,0,1,0,1,0,0,1,1,1,0,1,0,0,1,0,1,0,1,0,1,0,0,1,0,1,0,0,0,1,1,0,0,1,1,0,1,1,0,0,0,0,0,0,1,0,0,1,1,0,0,1,0,0,0,1,0,0,1,1,1,1,1,1,1], output: {[3]: 1} }); //Whats ur name?
+	// trainData.push({ input: [1,0,1,1,0,0,0,1,0,0,1,1,1,0,1,0,1,0,1,0,0,1,0,1,0,0,0,1,1,0,0,1,1,0,1,1,0,0,0,0,0,0,1,0,0,1,1,0,0,1,0,0,0,1,0,0,1,1,1,1,1,1,1], output: {[3]: 1} }); //Your name?
+	// trainData.push({ input: [1,0,1,0,1,1,0,1,0,0,0,1,1,1,1,0,0,1,1,1,0,1,0,0,0,0,0,0,1,0,1,0,0,0,1,1,0,0,0,1,0,0,1,0,1,1,0,0,0,1,0,0,1,1,1,0,1,0,1,0,1,0,0,1,1,1,1,1,1,1], output: {[3]: 1} }); //Who are you?
+	// trainData.push({ input: [1,0,0,1,1,0,1,1,0,0,0,0,0,0,1,0,0,1,1,0,0,1,0,0,0,1,0,0,1,1,1,1,1,1,1], output: {[3]: 1} }); //Name?
+																																																										
+	// //Meaning of life?
+	// trainData.push({ input: [1,0,1,0,1,1,0,1,0,0,0,1,1,1,1,0,0,0,0,0,0,1,0,1,0,0,1,1,1,0,0,1,0,0,0,1,0,1,0,0,1,0,1,0,1,0,0,1,1,1,0,0,0,1,1,1,1,0,0,0,1,0,0,1,0,0,1,1,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0,0,1,0,0,1,1,0,1,1,0,0,1,0,0,0,1,0,0,1,1,0,1,1,0,0,0,1,1,0,1,0,0,1,1,1,0,1,0,0,0,1,0,1,1,0,0,1,0,1,1,1,0,0,1,0,0,0,1,0,0,0,1,0,1,1,0,0,0,1,0,0,1,1,1,1,1,1,1], output: {[4]: 1} }); //What is the meaning of life?
+	// trainData.push({ input: [1,0,0,1,1,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0,0,1,0,0,1,1,0,1,1,0,0,1,0,0,0,1,0,0,1,1,0,1,1,0,0,0,1,1,0,1,0,0,1,1,1,0,1,0,0,0,1,0,1,1,0,0,1,0,1,1,1,0,0,1,0,0,0,1,0,0,0,1,0,1,1,0,0,0,1,0,0,1,1,1,1,1,1,1], output: {[4]: 1} }); //Meaning of life?
+
+	// //How old are you?
+	// trainData.push({ input: [1,0,0,0,1,1,1,1,0,0,1,1,1,0,1,0,1,0,1,1,0,1,0,0,1,1,1,0,1,0,0,1,0,1,1,1,0,0,0,0,1,1,1,0,0,0,0,0,0,1,0,1,0,0,0,1,1,0,0,0,1,0,0,1,0,1,1,0,0,0,1,0,0,1,1,1,0,1,0,1,0,1,0,0,1,1,1,1,1,1,1], output: {[5]: 1} }); //How old are you?
+	// trainData.push({ input: [1,0,1,0,1,1,0,1,0,0,0,1,1,1,1,0,0,0,0,0,0,1,0,1,0,0,1,1,1,0,0,1,0,0,0,1,0,1,0,0,1,0,1,0,1,1,0,0,0,1,0,0,1,1,1,0,1,0,1,0,1,0,0,1,0,1,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,1,1,0,1,0,0,0,1,0,0,1,1,1,1,1,1,1], output: {[5]: 1} }); //What is your age?
+	// trainData.push({ input: [1,0,1,0,1,1,0,1,0,0,0,1,1,1,1,0,0,0,0,0,0,1,0,1,0,0,1,1,1,0,1,0,0,1,0,1,0,1,1,0,0,0,1,0,0,1,1,1,0,1,0,1,0,1,0,0,1,0,1,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,1,1,0,1,0,0,0,1,0,0,1,1,1,1,1,1,1], output: {[5]: 1} }); //Whats your age?
+	// trainData.push({ input: [1,0,1,0,1,1,0,1,0,0,0,1,1,1,1,0,0,0,0,0,0,1,0,1,0,0,1,1,1,0,1,0,0,1,0,1,0,1,0,1,0,0,1,0,1,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,1,1,0,1,0,0,0,1,0,0,1,1,1,1,1,1,1], output: {[5]: 1} }); //Whats ur age?
+																																																										
+	// //Are you human?
+	// trainData.push({ input: [1,0,0,0,0,0,0,1,0,1,0,0,0,1,1,0,0,0,1,0,0,1,0,1,1,0,0,0,1,0,0,1,1,1,0,1,0,1,0,1,0,0,1,0,0,0,1,1,1,1,0,1,0,1,0,0,1,0,0,1,1,0,0,1,0,0,0,0,0,0,1,0,0,1,1,0,1,1,1,1,1,1,1,1], output: {[6]: 1} }); //Are you human?
+	// trainData.push({ input: [1,0,0,0,1,1,1,1,0,1,0,1,0,0,1,0,0,1,1,0,0,1,0,0,0,0,0,0,1,0,0,1,1,0,1,1,1,1,1,1,1,1], output: {[6]: 1} }); //human?
 
 	firebase.database().ref("trainData").on('value', function(snapshot) {
 		trainData = [];
 		snapshot.forEach(function(childSnapshot) {
 			var childData = childSnapshot.val();
+			// childData.output = childData.output.reduce((accumulator, currentValue) => {
+			// 	accumulator[currentValue] = currentValue;
+			// 	return accumulator;
+			// }, {});
 			console.log('childata antes do push', childData)
 			trainData.push(childData);
 		});
@@ -150,62 +258,23 @@ window.addEventListener('load', function() {
 	
 	
 	});
-
-
-	var message_side = "left";
-
-	function sendMessage(text) {
-		txt.value = "";
-
-		var messages = document.querySelector(".messages");
-
-		message_side = message_side === "left" ? "right" : "left";
-
-		var message = $($(".message_template").clone().html());
-		console.log(messages)
-		message.addClass(message_side).find(".text").html(text);
-		$(".messages").append(message);
-		message.addClass("appeared");
-		messages.scrollTo({ top: messages.scrollHeight, behavior: 'smooth' });
-	};
-
-
-	$(".send_message").click(function (e) {
+	//Chat button
+	chat.addEventListener("click",function(){
 		if (txt.value != ""){
+			newDiv("green",txt.value);
 			var data = textToBinary(txt.value);
-			sendMessage(txt.value);
-			var result = brain.likely(data, net);
-			for (k=1;k<=botTalk.length;k++){
-				if (result == k){
-					delayVar=k;
-					setTimeout(function(){
-						sendMessage(botTalk[delayVar-1]);
-						trainingArea.style.display="inline";
-					},800);
-				}
-			}
-			help.style.display = "none";
-			helpBtn.style.display = "none";
-		}
-	});
-	$(".message_input").keyup(function (e) {
-		if (e.which === 13) {
-			if (txt.value != ""){
-				var data = textToBinary(txt.value);
-				sendMessage(txt.value);
 				var result = brain.likely(data, net);
 				for (k=1;k<=botTalk.length;k++){
 					if (result == k){
 						delayVar=k;
 						setTimeout(function(){
-							sendMessage(botTalk[delayVar-1]);
+							newDiv("orange",botTalk[delayVar-1]);
 							trainingArea.style.display="inline";
 						},800);
 					}
 				}
-				help.style.display = "none";
-				helpBtn.style.display = "none";
-			}
+			help.style.display = "none";
+			helpBtn.style.display = "none";
 		}
 	});
 
