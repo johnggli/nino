@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/styles.css" type="text/css">
 
 	<title>Nino - AI Chatbot</title>
@@ -14,9 +14,9 @@
 	<div class="chat_window">
 		<div class="top_menu">
 			<div class="buttons">
-				<div class="button close"></div>
+				<div class="button close" id="noButton"></div>
 				<!-- <div class="button minimize"></div> -->
-				<div class="button maximize"></div>
+				<!-- <div class="button maximize" id="yesButton"></div> -->
 			</div>
 			<div class="title">Chat</div>
 		</div>
@@ -30,6 +30,15 @@
 				<div class="text">Send</div>
 			</div>
 		</div>
+		<div class="bottom_wrapper clearfix" id="trainArea">
+			<div class="message_input_wrapper">
+				<input class="train_input" id="helpBox" placeholder="Type a good response..." />
+			</div>
+			<div class="send_train" id="helpButton">
+				<div class="icon"></div>
+				<div class="text">Train AI</div>
+			</div>
+		</div>
 	</div>
 	<div class="message_template">
 		<li class="message">
@@ -40,7 +49,7 @@
 		</li>
 	</div>
 
-	<div id="trainArea">
+	<!-- <div id="trainArea">
 		<div id="confirmation">Was my answer good?</div>
 		</br>
 		<button class="button" id="noButton">No</button>
@@ -48,34 +57,15 @@
 		</br>
 		<textarea placeholder="Type a good response" id="helpBox"></textarea></br>
 		<button class="button" id="helpButton">Train AI</button>
-	</div>
+	</div> -->
 
 	<!-- JavaScript -->
-	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-	<script src="https://unpkg.com/brain.js@2.0.0-beta.2/dist/brain-browser.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-database.js"></script>
+	<script src="https://unpkg.com/brain.js@2.0.0-beta.2/dist/brain-browser.min.js"></script>
 	<script type="text/javascript" src="js/scripts.js"></script>
 </body>
 </html>
-
-<!-- <html>
-	<body>
-		<textarea maxlength="28" placeholder="Ask the bot anything!" id="textBox"></textarea>
-		<button id="chatButton">Chat</button>
-		<div id="trainArea">
-			<div id="confirmation">Was my answer good?</div>
-			</br>
-			<button class="button" id="noButton">No</button>
-			<button class="button" id="yesButton">Yes</button>
-			</br>
-			<textarea placeholder="Type a good response" id="helpBox"></textarea></br>
-			<button class="button" id="helpButton">Train AI</button>
-		</div>
-
-		<script src="https://unpkg.com/brain.js@2.0.0-beta.2/dist/brain-browser.min.js"></script>
-		<script type="text/javascript" src="js/scripts.js"></script>
-		<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
-		<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-database.js"></script>
-	</body>
-</html> -->

@@ -1,27 +1,13 @@
 #helpBox{
    display:none;
-   width:70%;
-   position: fixed;
-   bottom: 75%;
-   left: 50%;
-   transform:translate(-50%,0);
 }
 
 #helpButton{
 	display: none;
-   bottom: 67.5%;
-   left: 50%;
-   background-color: orange;
 }
 
 #trainArea{
-	height:35%;
-	background-color: #cccccc;
-	width:100%;
-	position: fixed;
 	display:none;
-	z-index:2;
-	border: 1px solid black;
 }
 
 * {
@@ -86,7 +72,7 @@ body {
   list-style: none;
   padding: 20px 10px 0 10px;
   margin: 0;
-  height: 347px;
+  height: 354px;
   overflow: scroll;
 }
 .messages .message {
@@ -183,7 +169,8 @@ body {
   position: relative;
   padding: 0 20px;
 }
-.bottom_wrapper .message_input_wrapper .message_input {
+.bottom_wrapper .message_input_wrapper .message_input,
+.bottom_wrapper .message_input_wrapper .train_input {
   border: none;
   height: 100%;
   box-sizing: border-box;
@@ -192,7 +179,8 @@ body {
   outline-width: 0;
   color: gray;
 }
-.bottom_wrapper .send_message {
+.bottom_wrapper .send_message,
+.bottom_wrapper .send_train {
   width: 140px;
   height: 50px;
   display: inline-block;
@@ -205,11 +193,13 @@ body {
   text-align: center;
   float: right;
 }
-.bottom_wrapper .send_message:hover {
+.bottom_wrapper .send_message:hover,
+.bottom_wrapper .send_train:hover {
   color: #a3d063;
   background-color: #fff;
 }
-.bottom_wrapper .send_message .text {
+.bottom_wrapper .send_message .text,
+.bottom_wrapper .send_train .text {
   font-size: 18px;
   font-weight: 300;
   display: inline-block;

@@ -14,7 +14,6 @@ window.addEventListener('load', function() {
 
 	var chat = document.getElementById("chatButton");
 	var no = document.getElementById("noButton");
-	var yes = document.getElementById("yesButton");
 	var txt = document.getElementById("textBox");
 	var help = document.getElementById("helpBox");
 	var helpBtn = document.getElementById("helpButton");
@@ -169,57 +168,46 @@ window.addEventListener('load', function() {
 		messages.scrollTo({ top: messages.scrollHeight, behavior: 'smooth' });
 	};
 
+	var inputData;
+
 
 	$(".send_message").click(function (e) {
 		if (txt.value != ""){
-			var data = textToBinary(txt.value);
+			inputData = textToBinary(txt.value);
 			sendMessage(txt.value);
-			var result = brain.likely(data, net);
+			var result = brain.likely(inputData, net);
 			for (k=1;k<=botTalk.length;k++){
 				if (result == k){
 					delayVar=k;
 					setTimeout(function(){
 						sendMessage(botTalk[delayVar-1]);
-						trainingArea.style.display="inline";
 					},800);
 				}
 			}
-			help.style.display = "none";
-			helpBtn.style.display = "none";
 		}
 	});
 	$(".message_input").keyup(function (e) {
 		if (e.which === 13) {
 			if (txt.value != ""){
-				var data = textToBinary(txt.value);
+				inputData = textToBinary(txt.value);
 				sendMessage(txt.value);
-				var result = brain.likely(data, net);
+				var result = brain.likely(inputData, net);
 				for (k=1;k<=botTalk.length;k++){
 					if (result == k){
 						delayVar=k;
 						setTimeout(function(){
 							sendMessage(botTalk[delayVar-1]);
-							trainingArea.style.display="inline";
 						},800);
 					}
 				}
-				help.style.display = "none";
-				helpBtn.style.display = "none";
 			}
 		}
 	});
 
-	yes.addEventListener("click", function(){
-		alert("Sweet!");
-		txt.value="";
-		help.style.display = "none";
-		helpBtn.style.display = "none";
-		trainingArea.style.display="none";
-	})
-
 	no.addEventListener("click", function(){
 		alert("Oh, I am sorry! What would be a good response to your input?");
-		divArr[divArr.length-1].style.backgroundColor="#ff6666"
+		$('.messages').children().last().css('background-color', '#ff6677')
+		trainingArea.style.display="inline";
 		help.style.display = "inline";
 		helpBtn.style.display = "inline";
 	})
@@ -228,11 +216,11 @@ window.addEventListener('load', function() {
 		trainingArea.style.display="none";
 		// botTalk.push(help.value);
 
-		newInput = textToBinary(txt.value);
+		// newInput = textToBinary(txt.value);
 		// trainData.push({ input: newInput, output: {[commands]: 1} }); //user training data
 
 		ref = firebase.database().ref('trainData');
-		ref.push().set({ input: newInput, output: {[botTalk.length + 1]: 1} });
+		ref.push().set({ input: inputData, output: {[botTalk.length + 1]: 1} });
 		// trainData = []
 
 		ref = firebase.database().ref('botTalk');
