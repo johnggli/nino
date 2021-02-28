@@ -20,6 +20,7 @@ $(document).ready(function() {
 			var childData = childSnapshot.val();
 			botTalk.push(childData);
 		});
+		$('.loading').hide();
 	});
 
 	//***********Machine learning**************
