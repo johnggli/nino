@@ -172,18 +172,21 @@ body {
   outline-width: 0;
   color: gray;
 }
-.bottom_wrapper .send_message {
+.bottom_wrapper .send_message,
+.bottom_wrapper .send_train {
   width: 140px;
   height: 50px;
   display: inline-block;
   border-radius: 50px;
-  background-color: var(--primary);
-  border: 2px solid var(--primary);
   color: #fff;
   cursor: pointer;
   transition: all 0.2s linear;
   text-align: center;
   float: right;
+}
+.bottom_wrapper .send_message {
+  background-color: var(--primary);
+  border: 2px solid var(--primary);
 }
 .bottom_wrapper .send_message:hover {
   color: var(--primary);
@@ -191,17 +194,8 @@ body {
 }
 
 .bottom_wrapper .send_train {
-  width: 140px;
-  height: 50px;
-  display: inline-block;
-  border-radius: 50px;
   background-color: var(--secondary);
   border: 2px solid var(--secondary);
-  color: #fff;
-  cursor: pointer;
-  transition: all 0.2s linear;
-  text-align: center;
-  float: right;
 }
 
 .bottom_wrapper .send_train:hover {
