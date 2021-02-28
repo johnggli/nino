@@ -1,23 +1,16 @@
 $(document).ready(function() {
   var firebaseConfig = {
-		apiKey: "AIzaSyD5WPrxLPtaJfCju56pxhu6r8sGYDn7tc8",
-		authDomain: "nino-ff8f0.firebaseapp.com",
-		databaseURL: "https://nino-ff8f0-default-rtdb.firebaseio.com",
-		projectId: "nino-ff8f0",
-		storageBucket: "nino-ff8f0.appspot.com",
-		messagingSenderId: "190961029360",
-		appId: "1:190961029360:web:3a3dec27adeba2685fb235"
+		apiKey: 'AIzaSyD5WPrxLPtaJfCju56pxhu6r8sGYDn7tc8',
+		authDomain: 'nino-ff8f0.firebaseapp.com',
+		databaseURL: 'https://nino-ff8f0-default-rtdb.firebaseio.com',
+		projectId: 'nino-ff8f0',
+		storageBucket: 'nino-ff8f0.appspot.com',
+		messagingSenderId: '190961029360',
+		appId: '1:190961029360:web:3a3dec27adeba2685fb235'
 	};
 
 	// Initialize Firebase
 	firebase.initializeApp(firebaseConfig);
-
-	var chat = $('#chatButton');
-	var no = $('#noButton');
-	var txt = $('#textBox');
-	var help = $('#helpBox');
-	var helpBtn = $('#helpButton');
-	var trainingArea = $('#trainArea');
 
 	var botTalk = [];
 
@@ -27,8 +20,6 @@ $(document).ready(function() {
 			var childData = childSnapshot.val();
 			botTalk.push(childData);
 		});
-
-		console.log(botTalk)
 	});
 
 	//***********Machine learning**************
@@ -36,27 +27,22 @@ $(document).ready(function() {
 	var trainData = [];
 	var maxLength = 0;
 	var remainingLength = 0;
-	var newInput;
 
 	firebase.database().ref('trainData').on('value', function(snapshot) {
 		trainData = [];
 		snapshot.forEach(function(childSnapshot) {
 			var childData = childSnapshot.val();
-			console.log('childata antes do push', childData)
 			trainData.push(childData);
 		});
-
-		console.log(trainData)
-		console.log('length do bottalk dentro do traindata', botTalk.length)
 	
 		//Commands to fill up the arrays with zeros. All arrays must be of same length
-		for (j=0;j<trainData.length;j++){
-			if (trainData[j].input.length > maxLength){
+		for (j=0; j < trainData.length; j++) {
+			if (trainData[j].input.length > maxLength) {
 				maxLength = trainData[j].input.length;
 			}
 		}
-		for (q=0;q<trainData.length;q++){
-			if (trainData[q].input.length < maxLength){
+		for (q=0; q < trainData.length; q++) {
+			if (trainData[q].input.length < maxLength) {
 				remainingLength = maxLength - trainData[q].input.length;
 				zeroArray = Array(remainingLength).fill(0);
 				trainData[q].input = trainData[q].input.concat(zeroArray);
@@ -74,49 +60,58 @@ $(document).ready(function() {
 	var message_side = 'left';
 
 	function sendMessage(text) {
-		txt.val('');
-		var messages = $('.messages');
+		// reset input value
+		$('.message_input').val('');
 
 		message_side = message_side === 'left' ? 'right' : 'left';
 
-		var message = $($(".message_template").clone().html());
+		var message = $($('.message_template').clone().html());
 		
 		message.addClass(message_side).find('.text').html(text);
+
 		$('.messages').append(message);
+
 		message.addClass('appeared');
 
-		messages.animate({ scrollTop: messages.prop('scrollHeight') }, 300);
+		$('.messages').animate({ scrollTop: $('.messages').prop('scrollHeight') }, 300);
 	};
 
-	var inputData;
+	var binary_message;
 
-	$(".send_message").click(function (e) {
-		if (txt.val() != ''){
-			inputData = textToBinary(txt.val());
-			sendMessage(txt.val());
-			var result = brain.likely(inputData, net);
-			for (k=1;k<=botTalk.length;k++){
+	$('.send_message').click(function() {
+		if ($('.message_input').val() != '') {
+			binary_message = textToBinary($('.message_input').val());
+
+			sendMessage($('.message_input').val());
+
+			var result = brain.likely(binary_message, net);
+
+			for (k=1; k <= botTalk.length; k++){
 				if (result == k){
-					delayVar=k;
-					setTimeout(function(){
-						sendMessage(botTalk[delayVar-1]);
-					},800);
+					delayVar = k;
+					setTimeout(function() {
+						sendMessage(botTalk[delayVar - 1]);
+					}, 800);
 				}
 			}
 		}
 	});
-	$(".message_input").keyup(function (e) {
+
+	$('.message_input').keyup(function (e) {
 		if (e.which === 13) {
-			if (txt.val() != ""){
-				inputData = textToBinary(txt.val());
-				sendMessage(txt.val());
-				var result = brain.likely(inputData, net);
-				for (k=1;k<=botTalk.length;k++){
+			if ($('.message_input').val() != '') {
+				binary_message = textToBinary($('.message_input').val());
+
+				sendMessage($('.message_input').val());
+
+				var result = brain.likely(binary_message, net);
+
+				for (k=1; k <= botTalk.length; k++) {
 					if (result == k){
-						delayVar=k;
-						setTimeout(function(){
-							sendMessage(botTalk[delayVar-1]);
-						},800);
+						delayVar = k;
+						setTimeout(function() {
+							sendMessage(botTalk[delayVar - 1]);
+						}, 800);
 					}
 				}
 			}
@@ -124,23 +119,23 @@ $(document).ready(function() {
 	});
 
 
-	no.click(function(){
+	$('.close').click(function() {
 		alert("Oh, I am sorry! What would be a good response to your input?");
-		$('.messages').children().last().css('background-color', '#ff6677')
-		trainingArea.style.display="inline";
-		help.style.display = "inline";
-		helpBtn.style.display = "inline";
+
+		$('.messages').children().last().css('background-color', '#ff6677');
+
+		$('.training_area').removeClass('d-none');
 	})
 
 
-	helpBtn.click(function(){
-		trainingArea.style.display="none";
+	$('.send_train').click(function() {
+		$('.training_area').addClass('d-none');
 	
-		ref = firebase.database().ref('trainData');
-		ref.push().set({ input: inputData, output: {[botTalk.length + 1]: 1} });
+		var trainDataRef = firebase.database().ref('trainData');
+		trainDataRef.push().set({ input: binary_message, output: {[botTalk.length + 1]: 1} });
 	
-		ref = firebase.database().ref('botTalk');
-		ref.push().set(help.val());
+		var botTalkRef = firebase.database().ref('botTalk');
+		botTalkRef.push().set($('.train_input').val());
 	
 		net = new brain.NeuralNetwork();
 	
@@ -152,15 +147,9 @@ $(document).ready(function() {
 		});
 	
 		alert("Alright! Thanks for making me smarter!");
-	
-		txt.val('');
-		help.val('');
-		help.style.display = "none";
-		helpBtn.style.display = "none";
-	
-		console.log('a galera toda depois do alert de thanks:')
-		console.log('bottalk', botTalk)
-		console.log('trainData', trainData)
+
+		$('.message_input').val('');
+		$('.train_input').val('');
 	});
 	
 	
@@ -257,7 +246,7 @@ $(document).ready(function() {
 		//console.log(data.toString());
 	
 		//Fill user input array with zeros to get correct length
-		if (data.length < maxLength){
+		if (data.length < maxLength) {
 			remainingLength = maxLength - data.length;
 			zeroArray = Array(remainingLength).fill(0);
 			data = data.concat(zeroArray);

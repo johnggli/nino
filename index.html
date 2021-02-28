@@ -14,27 +14,30 @@
 	<div class="chat_window">
 		<div class="top_menu">
 			<div class="buttons">
-				<div class="button close" id="noButton"></div>
+				<div class="button close"></div>
 				<!-- <div class="button minimize"></div> -->
 				<!-- <div class="button maximize" id="yesButton"></div> -->
 			</div>
 			<div class="title">Chat</div>
 		</div>
+
 		<ul class="messages"></ul>
+
 		<div class="bottom_wrapper clearfix">
 			<div class="message_input_wrapper">
-				<input class="message_input" id="textBox" placeholder="Type your message here..." />
+				<input class="message_input" placeholder="Type your message here..." />
 			</div>
-			<div class="send_message" id="chatButton">
+			<div class="send_message">
 				<div class="icon"></div>
 				<div class="text">Send</div>
 			</div>
 		</div>
-		<div class="bottom_wrapper clearfix" id="trainArea">
+
+		<div class="bottom_wrapper clearfix training_area d-none">
 			<div class="message_input_wrapper">
-				<input class="train_input" id="helpBox" placeholder="Type a good response..." />
+				<input class="train_input" placeholder="Type a good response..." />
 			</div>
-			<div class="send_train" id="helpButton">
+			<div class="send_train">
 				<div class="icon"></div>
 				<div class="text">Train AI</div>
 			</div>
@@ -48,16 +51,6 @@
 			</div>
 		</li>
 	</div>
-
-	<!-- <div id="trainArea">
-		<div id="confirmation">Was my answer good?</div>
-		</br>
-		<button class="button" id="noButton">No</button>
-		<button class="button" id="yesButton">Yes</button>
-		</br>
-		<textarea placeholder="Type a good response" id="helpBox"></textarea></br>
-		<button class="button" id="helpButton">Train AI</button>
-	</div> -->
 
 	<!-- JavaScript -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
