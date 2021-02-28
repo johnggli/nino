@@ -1,5 +1,5 @@
-$(document).ready(function() {
-  var firebaseConfig = {
+window.addEventListener('load', function() {
+	var firebaseConfig = {
 		apiKey: "AIzaSyD5WPrxLPtaJfCju56pxhu6r8sGYDn7tc8",
 		authDomain: "nino-ff8f0.firebaseapp.com",
 		databaseURL: "https://nino-ff8f0-default-rtdb.firebaseio.com",
@@ -12,16 +12,34 @@ $(document).ready(function() {
 	// Initialize Firebase
 	firebase.initializeApp(firebaseConfig);
 
-	var chat = $('#chatButton');
-	var no = $('#noButton');
-	var txt = $('#textBox');
-	var help = $('#helpBox');
-	var helpBtn = $('#helpButton');
-	var trainingArea = $('#trainArea');
+	var chat = document.getElementById("chatButton");
+	var no = document.getElementById("noButton");
+	var txt = document.getElementById("textBox");
+	var help = document.getElementById("helpBox");
+	var helpBtn = document.getElementById("helpButton");
+	var trainingArea = document.getElementById("trainArea");
+
+	// var Message;
+	// Message = function (arg) {
+	// 	(this.text = arg.text), (this.message_side = arg.message_side);
+	// 	this.draw = (function (_this) {
+	// 		return function () {
+	// 			var $message;
+	// 			$message = $($(".message_template").clone().html());
+	// 			$message.addClass(_this.message_side).find(".text").html(_this.text);
+	// 			$(".messages").append($message);
+	// 			return setTimeout(function () {
+	// 				return $message.addClass("appeared");
+	// 			}, 0);
+	// 		};
+	// 	})(this);
+	// 	return this;
+	// };
+
+
 
 	var botTalk = [];
-
-	firebase.database().ref('botTalk').on('value', function(snapshot) {
+	firebase.database().ref("botTalk").on('value', function(snapshot) {
 		botTalk = [];
 		snapshot.forEach(function(childSnapshot) {
 			var childData = childSnapshot.val();
@@ -31,6 +49,65 @@ $(document).ready(function() {
 		console.log(botTalk)
 	});
 
+
+
+	var divArr=[];
+	var delayVar=0;
+
+	function newDiv(COLOR, TEXT) {
+		var newdiv = document.createElement("div");
+
+		newdiv.style.width = "90%";
+		newdiv.style.height = "10%";
+		newdiv.style.background = COLOR;
+		if(COLOR=="green"){
+			newdiv.style.left="53%";
+		}
+		else{
+			newdiv.style.left="47%";
+		}
+		newdiv.style.bottom="15%";
+		newdiv.style.position="fixed";
+		newdiv.style.borderRadius="10px";
+		newdiv.style.transform="translate(-50%,0)";
+		newdiv.style.paddingLeft ="10px";
+		newdiv.style.paddingTop ="5px";
+		newdiv.style.fontFamily="	Verdana, Times, serif";
+		newdiv.innerHTML = TEXT;
+		newdiv.style.border = "1px solid black";
+		newdiv.style.color="white";
+		document.body.appendChild(newdiv);
+
+		divArr.push(newdiv);
+
+		for (y=0;y<divArr.length-1;y++) {
+			if (divArr[y].style.bottom=="15%"){
+				divArr[y].style.bottom="28%";
+			}
+			else if (divArr[y].style.bottom=="28%"){
+				divArr[y].style.bottom="41%";
+			}
+			else if (divArr[y].style.bottom=="41%"){
+				divArr[y].style.bottom="54%";
+			}
+			else if (divArr[y].style.bottom=="54%"){
+				divArr[y].style.bottom="67%";
+			}
+			else if (divArr[y].style.bottom=="67%"){
+				divArr[y].style.bottom="80%";
+			}
+			else if (divArr[y].style.bottom=="80%"){
+				divArr[y].style.bottom="93%";
+			}
+			else if (divArr[y].style.bottom=="93%"){
+				divArr[y].style.bottom="106%";
+			}
+			else if(divArr[y].style.bottom=="106%"){
+				divArr[y].style.display="none";
+			}
+		}
+	}
+
 	//***********Machine learning**************
 	var net = new brain.NeuralNetwork();
 	var trainData = [];
@@ -38,7 +115,7 @@ $(document).ready(function() {
 	var remainingLength = 0;
 	var newInput;
 
-	firebase.database().ref('trainData').on('value', function(snapshot) {
+	firebase.database().ref("trainData").on('value', function(snapshot) {
 		trainData = [];
 		snapshot.forEach(function(childSnapshot) {
 			var childData = childSnapshot.val();
@@ -69,31 +146,35 @@ $(document).ready(function() {
 			logPeriod: 10,
 			errorThresh: 0.0005,
 		}); //Using all the training data to train the AI
+	
+	
 	});
 
-	var message_side = 'left';
+
+	var message_side = "left";
 
 	function sendMessage(text) {
-		txt.val('');
-		var messages = $('.messages');
+		txt.value = "";
 
-		message_side = message_side === 'left' ? 'right' : 'left';
+		var messages = document.querySelector(".messages");
+
+		message_side = message_side === "left" ? "right" : "left";
 
 		var message = $($(".message_template").clone().html());
-		
-		message.addClass(message_side).find('.text').html(text);
-		$('.messages').append(message);
-		message.addClass('appeared');
-
-		messages.animate({ scrollTop: messages.prop('scrollHeight') }, 300);
+		console.log(messages)
+		message.addClass(message_side).find(".text").html(text);
+		$(".messages").append(message);
+		message.addClass("appeared");
+		messages.scrollTo({ top: messages.scrollHeight, behavior: 'smooth' });
 	};
 
 	var inputData;
 
+
 	$(".send_message").click(function (e) {
-		if (txt.val() != ''){
-			inputData = textToBinary(txt.val());
-			sendMessage(txt.val());
+		if (txt.value != ""){
+			inputData = textToBinary(txt.value);
+			sendMessage(txt.value);
 			var result = brain.likely(inputData, net);
 			for (k=1;k<=botTalk.length;k++){
 				if (result == k){
@@ -107,9 +188,9 @@ $(document).ready(function() {
 	});
 	$(".message_input").keyup(function (e) {
 		if (e.which === 13) {
-			if (txt.val() != ""){
-				inputData = textToBinary(txt.val());
-				sendMessage(txt.val());
+			if (txt.value != ""){
+				inputData = textToBinary(txt.value);
+				sendMessage(txt.value);
 				var result = brain.likely(inputData, net);
 				for (k=1;k<=botTalk.length;k++){
 					if (result == k){
@@ -123,8 +204,7 @@ $(document).ready(function() {
 		}
 	});
 
-
-	no.click(function(){
+	no.addEventListener("click", function(){
 		alert("Oh, I am sorry! What would be a good response to your input?");
 		$('.messages').children().last().css('background-color', '#ff6677')
 		trainingArea.style.display="inline";
@@ -132,38 +212,47 @@ $(document).ready(function() {
 		helpBtn.style.display = "inline";
 	})
 
-
-	helpBtn.click(function(){
+	helpBtn.addEventListener("click", function(){
 		trainingArea.style.display="none";
-	
+		// botTalk.push(help.value);
+
+		// newInput = textToBinary(txt.value);
+		// trainData.push({ input: newInput, output: {[commands]: 1} }); //user training data
+
 		ref = firebase.database().ref('trainData');
 		ref.push().set({ input: inputData, output: {[botTalk.length + 1]: 1} });
-	
+		// trainData = []
+
 		ref = firebase.database().ref('botTalk');
-		ref.push().set(help.val());
-	
+		ref.push().set(help.value);
+		// botTalk = []
+
+		// commands = commands+1;
+
 		net = new brain.NeuralNetwork();
-	
+
 		//Training the AI
 		net.train(trainData, {
 			log: false,
 			logPeriod: 10,
 			errorThresh: 0.0005,
 		});
-	
+
 		alert("Alright! Thanks for making me smarter!");
-	
-		txt.val('');
-		help.val('');
+
+		txt.value="";
+		help.value="";
 		help.style.display = "none";
 		helpBtn.style.display = "none";
-	
+
 		console.log('a galera toda depois do alert de thanks:')
 		console.log('bottalk', botTalk)
 		console.log('trainData', trainData)
+
+		// location.reload();
 	});
-	
-	
+
+
 	function textToBinary(text){
 		//Storing all letters as binary numbers for AI
 		text = text.toUpperCase();
@@ -255,7 +344,7 @@ $(document).ready(function() {
 		}
 		//Used the code below to be able to read long arrays
 		//console.log(data.toString());
-	
+
 		//Fill user input array with zeros to get correct length
 		if (data.length < maxLength){
 			remainingLength = maxLength - data.length;
@@ -264,4 +353,5 @@ $(document).ready(function() {
 		}
 		return data;
 	}
+
 });
