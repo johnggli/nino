@@ -1,3 +1,8 @@
+:root {
+  --primary: #07E092;
+  --secondary: #7C4DFF;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -47,7 +52,7 @@ body {
   background-color: #fdbf68;
 } */
 .top_menu .buttons .button.maximize {
-  background-color: #a3d063;
+  background-color: var(--primary);
 }
 .top_menu .title {
   text-align: center;
@@ -167,23 +172,40 @@ body {
   outline-width: 0;
   color: gray;
 }
-.bottom_wrapper .send_message,
-.bottom_wrapper .send_train {
+.bottom_wrapper .send_message {
   width: 140px;
   height: 50px;
   display: inline-block;
   border-radius: 50px;
-  background-color: #a3d063;
-  border: 2px solid #a3d063;
+  background-color: var(--primary);
+  border: 2px solid var(--primary);
   color: #fff;
   cursor: pointer;
   transition: all 0.2s linear;
   text-align: center;
   float: right;
 }
-.bottom_wrapper .send_message:hover,
+.bottom_wrapper .send_message:hover {
+  color: var(--primary);
+  background-color: #fff;
+}
+
+.bottom_wrapper .send_train {
+  width: 140px;
+  height: 50px;
+  display: inline-block;
+  border-radius: 50px;
+  background-color: var(--secondary);
+  border: 2px solid var(--secondary);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s linear;
+  text-align: center;
+  float: right;
+}
+
 .bottom_wrapper .send_train:hover {
-  color: #a3d063;
+  color: var(--secondary);
   background-color: #fff;
 }
 .bottom_wrapper .send_message .text,

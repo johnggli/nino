@@ -121,8 +121,8 @@ $(document).ready(function() {
 
 	$('.close').click(function() {
 		alert("Oh, I am sorry! What would be a good response to your input?");
-
-		$('.messages').children().last().css('background-color', '#ff6677');
+		
+		$('.messages').children().last().children().last().children().last().css('color', '#ff6677');
 
 		$('.training_area').removeClass('d-none');
 	})
@@ -150,6 +150,32 @@ $(document).ready(function() {
 
 		$('.message_input').val('');
 		$('.train_input').val('');
+	});
+
+	$('.train_input').keyup(function (e) {
+		if (e.which === 13) {
+			$('.training_area').addClass('d-none');
+
+			var trainDataRef = firebase.database().ref('trainData');
+			trainDataRef.push().set({ input: binary_message, output: {[botTalk.length + 1]: 1} });
+		
+			var botTalkRef = firebase.database().ref('botTalk');
+			botTalkRef.push().set($('.train_input').val());
+		
+			net = new brain.NeuralNetwork();
+		
+			//Training the AI
+			net.train(trainData, {
+				log: false,
+				logPeriod: 10,
+				errorThresh: 0.0005,
+			});
+		
+			alert("Alright! Thanks for making me smarter!");
+
+			$('.message_input').val('');
+			$('.train_input').val('');
+		}
 	});
 	
 	
