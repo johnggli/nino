@@ -32,10 +32,11 @@ body {
 }
 
 .chat_window {
+  display: flex;
+  flex-direction: column;
   position: absolute;
   width: calc(100% - 20px);
   max-width: 800px;
-  height: 500px;
   border-radius: 10px;
   background-color: #fff;
   left: 50%;
@@ -87,7 +88,7 @@ body {
   padding: 20px 10px 0 10px;
   margin: 0;
   height: 354px;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 .messages .message {
@@ -188,10 +189,10 @@ body {
 
 .bottom_wrapper {
   position: relative;
+  display: flex;
   width: 100%;
   background-color: #fff;
   padding: 20px 20px;
-  position: absolute;
   bottom: 0;
 }
 
@@ -218,6 +219,7 @@ body {
 
 .bottom_wrapper .send_message,
 .bottom_wrapper .send_train {
+  margin-left: 1rem;
   width: 140px;
   height: 50px;
   display: inline-block;
@@ -226,7 +228,6 @@ body {
   cursor: pointer;
   transition: all 0.2s linear;
   text-align: center;
-  float: right;
 }
 
 .bottom_wrapper .send_message {
