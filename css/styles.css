@@ -1,6 +1,10 @@
 :root {
   --primary: #07E092;
   --secondary: #7C4DFF;
+  --textLeft: #121212;
+  --textLeftBackground: #DCDCDC;
+  --textRight: #FFF;
+  --textRightBackground: #03a9f4;
 }
 
 * {
@@ -103,18 +107,18 @@ body {
 }
 
 .messages .message.left .text_wrapper {
-  background-color: #ffe6cb;
+  background-color: var(--textLeftBackground);
   margin-left: 20px;
 }
 
 .messages .message.left .text_wrapper::after,
 .messages .message.left .text_wrapper::before {
   right: 100%;
-  border-right-color: #ffe6cb;
+  border-right-color: var(--textLeftBackground);
 }
 
 .messages .message.left .text {
-  color: #c48843;
+  color: var(--textLeft);
 }
 
 .messages .message.right .avatar {
@@ -123,7 +127,7 @@ body {
 }
 
 .messages .message.right .text_wrapper {
-  background-color: #c7eafc;
+  background-color: var(--textRightBackground);
   margin-right: 20px;
   float: right;
 }
@@ -131,11 +135,11 @@ body {
 .messages .message.right .text_wrapper::after,
 .messages .message.right .text_wrapper::before {
   left: 100%;
-  border-left-color: #c7eafc;
+  border-left-color: var(--textRightBackground);
 }
 
 .messages .message.right .text {
-  color: #45829b;
+  color: var(--textRight);
 }
 
 .messages .message.appeared {
@@ -151,10 +155,11 @@ body {
 
 .messages .message .text_wrapper {
   display: inline-block;
-  padding: 20px;
-  border-radius: 6px;
-  width: calc(100% - 85px);
-  min-width: 100px;
+  padding: 20px 30px;
+  border-radius: 8px;
+  max-width: 80%;
+  /* width: calc(100% - 85px); */
+  /* min-width: 100px; */
   position: relative;
 }
 
