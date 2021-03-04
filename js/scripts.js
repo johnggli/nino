@@ -1,12 +1,12 @@
 $(document).ready(function() {
   var firebaseConfig = {
-		apiKey: 'AIzaSyD5WPrxLPtaJfCju56pxhu6r8sGYDn7tc8',
-		authDomain: 'nino-ff8f0.firebaseapp.com',
-		databaseURL: 'https://nino-ff8f0-default-rtdb.firebaseio.com',
-		projectId: 'nino-ff8f0',
-		storageBucket: 'nino-ff8f0.appspot.com',
-		messagingSenderId: '190961029360',
-		appId: '1:190961029360:web:3a3dec27adeba2685fb235'
+		apiKey: config.API_KEY,
+		authDomain: config.AUTH_DOMAIN,
+		databaseURL: config.DATABASE_URL,
+		projectId: config.PROJECT_ID,
+		storageBucket: config.STORAGE_BUCKET,
+		messagingSenderId: config.MESSAGING_SENDER_ID,
+		appId: config.APP_ID
 	};
 
 	// Initialize Firebase
