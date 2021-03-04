@@ -122,7 +122,7 @@ $(document).ready(function() {
   });
 
 
-  $('.close').click(function() {
+  $('.wrong_answer').click(function() {
     alert("Oh, I am sorry! What would be a good response to your input?");
 
     $('.messages').children().last().children().last().children().last().css('color', '#ff6677');

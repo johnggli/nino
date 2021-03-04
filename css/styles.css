@@ -47,41 +47,38 @@ body {
 }
 
 .top_menu {
+  display: flex;
   background-color: #fff;
   width: 100%;
   padding: 20px 0 15px;
   box-shadow: 0 1px 30px rgba(0, 0, 0, 0.1);
 }
 
-.top_menu .buttons {
-  margin: 3px 0 0 20px;
-  position: absolute;
-}
-
-.top_menu .buttons .button {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  display: inline-block;
-  margin-right: 10px;
-  position: relative;
-}
-
-.top_menu .buttons .button.close {
-  background-color: #f5886e;
-}
-
-/* .top_menu .buttons .button.minimize {
-  background-color: #fdbf68;
-} */
-.top_menu .buttons .button.maximize {
-  background-color: var(--primary);
-}
-
 .top_menu .title {
   text-align: center;
   color: #bcbdc0;
   font-size: 20px;
+  flex: 1;
+}
+
+.top_menu .wrong_answer {
+  position: absolute;
+  right: 0;
+  top: 20px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: var(--secondary);
+  margin-right: 20px;
+
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.top_menu .wrong_answer i {
+  font-size: 1.5rem;
+  color: #fff;
 }
 
 .messages {
