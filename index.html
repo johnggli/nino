@@ -1,69 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/styles.css" type="text/css">
 
-	<title>Nino - AI Chatbot</title>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/styles.css" type="text/css">
+
+  <title>Nino - AI Chatbot</title>
 
 </head>
+
 <body>
-	<div class="loading">
-		<div class="spinner-border" role="status"></div>
-	</div>
+  <div class="loading">
+    <div class="spinner-border" role="status"></div>
+  </div>
 
-	<div class="chat_window">
-		<div class="top_menu">
-			<div class="buttons">
-				<div class="button close"></div>
-				<!-- <div class="button minimize"></div> -->
-				<!-- <div class="button maximize" id="yesButton"></div> -->
-			</div>
-			<div class="title">Nino</div>
-		</div>
+  <div class="chat_window">
+    <div class="top_menu">
+      <div class="buttons">
+        <div class="button close"></div>
+        <!-- <div class="button minimize"></div> -->
+        <!-- <div class="button maximize" id="yesButton"></div> -->
+      </div>
+      <div class="title">Nino</div>
+    </div>
 
-		<ul class="messages"></ul>
+    <ul class="messages"></ul>
 
-		<div class="bottom_wrapper clearfix">
-			<div class="message_input_wrapper">
-				<input class="message_input" placeholder="Digite uma mensagem" />
-			</div>
-			<div class="send_message">
-				<div class="icon"></div>
-				<div class="text">Enviar</div>
-			</div>
-		</div>
+    <div class="bottom_wrapper clearfix">
+      <div class="message_input_wrapper">
+        <input class="message_input" placeholder="Digite uma mensagem" />
+      </div>
+      <div class="send_message">
+        <div class="icon"></div>
+        <div class="text">Enviar</div>
+      </div>
+    </div>
 
-		<div class="bottom_wrapper clearfix training_area d-none">
-			<div class="message_input_wrapper">
-				<input class="train_input" placeholder="Digite uma boa resposta" />
-			</div>
-			<div class="send_train">
-				<div class="icon"></div>
-				<div class="text">Treinar</div>
-			</div>
-		</div>
-	</div>
-	<div class="message_template">
-		<li class="message">
-			<div class="avatar"></div>
-			<div class="text_wrapper">
-				<div class="text"></div>
-			</div>
-		</li>
-	</div>
+    <div class="bottom_wrapper clearfix training_area d-none">
+      <div class="message_input_wrapper">
+        <input class="train_input" placeholder="Digite uma boa resposta" />
+      </div>
+      <div class="send_train">
+        <div class="icon"></div>
+        <div class="text">Treinar</div>
+      </div>
+    </div>
+  </div>
+  <div class="message_template">
+    <li class="message">
+      <div class="avatar"></div>
+      <div class="text_wrapper">
+        <div class="text"></div>
+      </div>
+    </li>
+  </div>
 
-	<!-- JavaScript -->
+  <!-- JavaScript -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-database.js"></script>
-	<script src="https://unpkg.com/brain.js@2.0.0-beta.2/dist/brain-browser.min.js"></script>
-	<script type="text/javascript" src="js/config.js"></script>
-	<script type="text/javascript" src="js/scripts.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-database.js"></script>
+  <script src="https://unpkg.com/brain.js@2.0.0-beta.2/dist/brain-browser.min.js"></script>
+  <script type="text/javascript" src="js/config.js"></script>
+  <script type="text/javascript" src="js/scripts.js"></script>
 </body>
+
 </html>
