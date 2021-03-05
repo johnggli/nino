@@ -261,3 +261,9 @@ body {
 .message_template {
   display: none;
 }
+
+@media (max-width: 576px) {
+  /* .messages {
+    height: 80%;
+  } */
+}

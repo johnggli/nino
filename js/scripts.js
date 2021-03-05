@@ -128,11 +128,13 @@ $(document).ready(function() {
     $('.messages').children().last().children().last().children().last().css('color', '#ff6677');
 
     $('.training_area').removeClass('d-none');
+    $('.message_area').addClass('d-none');
   })
 
 
   $('.send_train').click(function() {
     $('.training_area').addClass('d-none');
+    $('.message_area').removeClass('d-none');
 
     var trainDataRef = firebase.database().ref('trainData');
     trainDataRef.push().set({
@@ -163,6 +165,7 @@ $(document).ready(function() {
   $('.train_input').keyup(function(e) {
     if (e.which === 13) {
       $('.training_area').addClass('d-none');
+      $('.message_area').removeClass('d-none');
 
       var trainDataRef = firebase.database().ref('trainData');
       trainDataRef.push().set({
