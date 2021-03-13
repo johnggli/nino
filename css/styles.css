@@ -1,6 +1,6 @@
 :root {
-  --primary: #07E092;
-  --secondary: #7C4DFF;
+  --primary: #03a9f4;
+  --secondary: #07E092;
   --textLeft: #121212;
   --textLeftBackground: #DCDCDC;
   --textRight: #FFF;
@@ -62,14 +62,14 @@ body {
   flex: 1;
 }
 
-.top_menu .wrong_answer {
+.top_menu .edit_answer {
   position: absolute;
   right: 0;
-  top: 20px;
-  width: 30px;
-  height: 30px;
+  top: 16px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
-  background-color: var(--secondary);
+  background-color: var(--primary);
   margin-right: 20px;
 
   display: inline-flex;
@@ -77,8 +77,8 @@ body {
   align-items: center;
 }
 
-.top_menu .wrong_answer i {
-  font-size: 1.5rem;
+.top_menu .edit_answer i {
+  font-size: 1rem;
   color: #fff;
 }
 
@@ -258,6 +258,7 @@ body {
   line-height: 48px;
 }
 
+.hello_template,
 .message_template {
   display: none;
 }

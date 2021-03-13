@@ -12,6 +12,20 @@ $(document).ready(function() {
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 
+  helloWorld();
+
+  function helloWorld() {
+    var hello = $($('.hello_template').clone().html());
+
+    $('.messages').append(hello);
+
+    hello.addClass('appeared');
+
+    $('.messages').animate({
+      scrollTop: $('.messages').prop('scrollHeight')
+    }, 300);
+  }
+
   var botTalk = [];
 
   firebase.database().ref('botTalk').on('value', function(snapshot) {
@@ -122,7 +136,7 @@ $(document).ready(function() {
   });
 
 
-  $('.wrong_answer').click(function() {
+  $('.edit_answer').click(function() {
     alert("Oh, I am sorry! What would be a good response to your input?");
 
     $('.messages').children().last().children().last().children().last().css('color', '#ff6677');
