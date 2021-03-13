@@ -192,7 +192,7 @@ $(document).ready(function() {
         errorThresh: 0.0005,
       });
   
-      alert("Tudo certo! Obrigado por me tornar mais inteligente!");
+      alert("Tudo certo! Obrigada por me tornar mais inteligente!");
   
       $('.message_input').val('');
       $('.train_input').val('');
@@ -225,7 +225,7 @@ $(document).ready(function() {
           errorThresh: 0.0005,
         });
   
-        alert("Tudo certo! Obrigado por me tornar mais inteligente!");
+        alert("Tudo certo! Obrigada por me tornar mais inteligente!");
   
         $('.message_input').val('');
         $('.train_input').val('');
