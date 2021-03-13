@@ -1,10 +1,11 @@
 :root {
-  --primary: #03a9f4;
+  --primary: #03A9F4;
   --secondary: #07E092;
+  --gray: #BCBDC0;
   --textLeft: #121212;
   --textLeftBackground: #DCDCDC;
   --textRight: #FFF;
-  --textRightBackground: #03a9f4;
+  --textRightBackground: #03A9F4;
 }
 
 * {
@@ -57,7 +58,7 @@ body {
 
 .top_menu .title {
   text-align: center;
-  color: #bcbdc0;
+  color: var(--gray);
   font-size: 20px;
   flex: 1;
 }
@@ -218,9 +219,10 @@ body {
 }
 
 .bottom_wrapper .send_message,
-.bottom_wrapper .send_train {
+.bottom_wrapper .send_train,
+.bottom_wrapper .cancel {
   margin-left: 1rem;
-  width: 140px;
+  min-width: 140px;
   height: 50px;
   display: inline-block;
   border-radius: 50px;
@@ -250,8 +252,19 @@ body {
   background-color: #fff;
 }
 
+.bottom_wrapper .cancel {
+  background-color: var(--gray);
+  border: 2px solid var(--gray);
+}
+
+.bottom_wrapper .cancel:hover {
+  color: var(--gray);
+  background-color: #fff;
+}
+
 .bottom_wrapper .send_message .text,
-.bottom_wrapper .send_train .text {
+.bottom_wrapper .send_train .text,
+.bottom_wrapper .cancel .text {
   font-size: 18px;
   font-weight: 300;
   display: inline-block;
@@ -261,6 +274,37 @@ body {
 .hello_template,
 .message_template {
   display: none;
+}
+
+.hello {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.hello .edit_icon {
+  margin-top: 5rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--primary);
+
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hello .edit_icon i {
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.hello .hello_message {
+  max-width: 24rem;
+  padding: 2rem;
+  color: var(--gray);
+  text-align: center;
 }
 
 @media (max-width: 576px) {

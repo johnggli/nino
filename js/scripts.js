@@ -73,6 +73,7 @@ $(document).ready(function() {
   });
 
   var message_side = 'left';
+  var hasResponse = false;
 
   function sendMessage(text) {
     // reset input value
@@ -108,6 +109,7 @@ $(document).ready(function() {
           delayVar = k;
           setTimeout(function() {
             sendMessage(botTalk[delayVar - 1]);
+            hasResponse = true;
           }, 800);
         }
       }
@@ -128,6 +130,7 @@ $(document).ready(function() {
             delayVar = k;
             setTimeout(function() {
               sendMessage(botTalk[delayVar - 1]);
+              hasResponse = true;
             }, 800);
           }
         }
@@ -137,12 +140,20 @@ $(document).ready(function() {
 
 
   $('.edit_answer').click(function() {
-    alert("Oh, I am sorry! What would be a good response to your input?");
+    if (hasResponse) {
+      $('.messages').children().last().children().last().children().last().css('color', '#ff6677');
+  
+      $('.training_area').removeClass('d-none');
+      $('.message_area').addClass('d-none');
+    } else {
+      alert("Primeiro, envie uma mensagem para a Nino.");
+    }
+  })
 
-    $('.messages').children().last().children().last().children().last().css('color', '#ff6677');
-
-    $('.training_area').removeClass('d-none');
-    $('.message_area').addClass('d-none');
+  $('.cancel').click(function() {
+    $('.messages').children().last().children().last().children().last().css('color', '#121212');
+    $('.training_area').addClass('d-none');
+    $('.message_area').removeClass('d-none');
   })
 
 
@@ -170,7 +181,7 @@ $(document).ready(function() {
       errorThresh: 0.0005,
     });
 
-    alert("Alright! Thanks for making me smarter!");
+    alert("Tudo certo! Obrigado por me tornar mais inteligente!");
 
     $('.message_input').val('');
     $('.train_input').val('');
@@ -201,7 +212,7 @@ $(document).ready(function() {
         errorThresh: 0.0005,
       });
 
-      alert("Alright! Thanks for making me smarter!");
+      alert("Tudo certo! Obrigado por me tornar mais inteligente!");
 
       $('.message_input').val('');
       $('.train_input').val('');
