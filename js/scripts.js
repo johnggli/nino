@@ -34,6 +34,12 @@ $(document).ready(function() {
       var childData = childSnapshot.val();
       botTalk.push(childData);
     });
+
+    if (botTalk.length == 0) {
+      var botTalkRef = firebase.database().ref('botTalk');
+      botTalkRef.push().set("hello world");
+    }
+
     $('.loading').hide();
   });
 
@@ -49,6 +55,10 @@ $(document).ready(function() {
       var childData = childSnapshot.val();
       trainData.push(childData);
     });
+
+    if (trainData.length == 0) {
+      trainData.push({ input: [1,0,0,0,1,1,1,1,0,0,1,0,0,0], output: {[1]: 1} });
+    }
 
     //Commands to fill up the arrays with zeros. All arrays must be of same length
     for (j = 0; j < trainData.length; j++) {
@@ -158,40 +168,10 @@ $(document).ready(function() {
 
 
   $('.send_train').click(function() {
-    $('.training_area').addClass('d-none');
-    $('.message_area').removeClass('d-none');
-
-    var trainDataRef = firebase.database().ref('trainData');
-    trainDataRef.push().set({
-      input: binary_message,
-      output: {
-        [botTalk.length + 1]: 1
-      }
-    });
-
-    var botTalkRef = firebase.database().ref('botTalk');
-    botTalkRef.push().set($('.train_input').val());
-
-    net = new brain.NeuralNetwork();
-
-    //Training the AI
-    net.train(trainData, {
-      log: false,
-      logPeriod: 10,
-      errorThresh: 0.0005,
-    });
-
-    alert("Tudo certo! Obrigado por me tornar mais inteligente!");
-
-    $('.message_input').val('');
-    $('.train_input').val('');
-  });
-
-  $('.train_input').keyup(function(e) {
-    if (e.which === 13) {
+    if ($('.train_input').val() != '') {
       $('.training_area').addClass('d-none');
       $('.message_area').removeClass('d-none');
-
+  
       var trainDataRef = firebase.database().ref('trainData');
       trainDataRef.push().set({
         input: binary_message,
@@ -199,23 +179,57 @@ $(document).ready(function() {
           [botTalk.length + 1]: 1
         }
       });
-
+  
       var botTalkRef = firebase.database().ref('botTalk');
       botTalkRef.push().set($('.train_input').val());
-
+  
       net = new brain.NeuralNetwork();
-
+  
       //Training the AI
       net.train(trainData, {
         log: false,
         logPeriod: 10,
         errorThresh: 0.0005,
       });
-
+  
       alert("Tudo certo! Obrigado por me tornar mais inteligente!");
-
+  
       $('.message_input').val('');
       $('.train_input').val('');
+    }
+  });
+
+  $('.train_input').keyup(function(e) {
+    if ($('.train_input').val() != '') {
+      if (e.which === 13) {
+        $('.training_area').addClass('d-none');
+        $('.message_area').removeClass('d-none');
+  
+        var trainDataRef = firebase.database().ref('trainData');
+        trainDataRef.push().set({
+          input: binary_message,
+          output: {
+            [botTalk.length + 1]: 1
+          }
+        });
+  
+        var botTalkRef = firebase.database().ref('botTalk');
+        botTalkRef.push().set($('.train_input').val());
+  
+        net = new brain.NeuralNetwork();
+  
+        //Training the AI
+        net.train(trainData, {
+          log: false,
+          logPeriod: 10,
+          errorThresh: 0.0005,
+        });
+  
+        alert("Tudo certo! Obrigado por me tornar mais inteligente!");
+  
+        $('.message_input').val('');
+        $('.train_input').val('');
+      }
     }
   });
 

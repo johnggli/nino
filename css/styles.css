@@ -308,7 +308,24 @@ body {
 }
 
 @media (max-width: 576px) {
-  /* .messages {
-    height: 80%;
-  } */
+  .chat_window {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 0;
+  }
+
+  .bottom_wrapper {
+    flex-direction: column;
+  }
+
+  .bottom_wrapper .message_input_wrapper {
+    width: 100%;
+  }
+
+  .bottom_wrapper .send_message,
+  .bottom_wrapper .send_train,
+  .bottom_wrapper .cancel {
+    margin-left: 0;
+    margin-top: .5rem;
+  }
 }
