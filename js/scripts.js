@@ -57,7 +57,12 @@ $(document).ready(function() {
     });
 
     if (trainData.length == 0) {
-      trainData.push({ input: [1,0,0,0,1,1,1,1,0,0,1,0,0,0], output: {[1]: 1} });
+      trainData.push({
+        input: [1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0],
+        output: {
+          [1]: 1
+        }
+      });
     }
 
     //Commands to fill up the arrays with zeros. All arrays must be of same length
@@ -88,7 +93,7 @@ $(document).ready(function() {
   function sendMessage(text) {
     // reset input value
     $('.message_input').val('');
-  
+
     message_side = message_side === 'left' ? 'right' : 'left';
 
     var message = $($('.message_template').clone().html());
@@ -108,8 +113,8 @@ $(document).ready(function() {
 
   var badwords = [];
 
-  $.get("https://run.mocky.io/v3/db8ebf66-83a5-47c9-bc5f-6246f7853002", function (data) {
-    data.badwords.forEach(function (badword) {
+  $.get("https://run.mocky.io/v3/db8ebf66-83a5-47c9-bc5f-6246f7853002", function(data) {
+    data.badwords.forEach(function(badword) {
       badwords.push(badword.toUpperCase());
     });
   });
@@ -136,11 +141,11 @@ $(document).ready(function() {
         $('.message_input').val('');
       } else {
         binary_message = textToBinary(input);
-  
+
         sendMessage(input);
-  
+
         var result = brain.likely(binary_message, net);
-  
+
         for (k = 1; k <= botTalk.length; k++) {
           if (result == k) {
             delayVar = k;
@@ -152,7 +157,7 @@ $(document).ready(function() {
         }
       }
     }
-  }
+  };
 
   $('.send_message').click(function() {
     verifyMessage();
@@ -168,7 +173,7 @@ $(document).ready(function() {
   $('.edit_answer').click(function() {
     if (hasResponse) {
       $('.messages').children().last().children().last().children().last().css('color', '#ff6677');
-  
+
       $('.training_area').removeClass('d-none');
       $('.message_area').addClass('d-none');
     } else {
@@ -182,45 +187,16 @@ $(document).ready(function() {
     $('.message_area').removeClass('d-none');
   })
 
-
-  $('.send_train').click(function() {
-    if ($('.train_input').val() != '') {
-      $('.training_area').addClass('d-none');
-      $('.message_area').removeClass('d-none');
-  
-      var trainDataRef = firebase.database().ref('trainData');
-      trainDataRef.push().set({
-        input: binary_message,
-        output: {
-          [botTalk.length + 1]: 1
-        }
-      });
-  
-      var botTalkRef = firebase.database().ref('botTalk');
-      botTalkRef.push().set($('.train_input').val());
-  
-      net = new brain.NeuralNetwork();
-  
-      //Training the AI
-      net.train(trainData, {
-        log: false,
-        logPeriod: 10,
-        errorThresh: 0.0005,
-      });
-  
-      alert("Tudo certo! Obrigada por me tornar mais inteligente!");
-  
-      $('.message_input').val('');
-      $('.train_input').val('');
-    }
-  });
-
-  $('.train_input').keyup(function(e) {
-    if ($('.train_input').val() != '') {
-      if (e.which === 13) {
+  function verifyTrain() {
+    var input = $('.train_input').val();
+    if (input != '') {
+      if (hasBadWord(input)) {
+        alert("Sem palavrões, por favor.");
+        $('.train_input').val('');
+      } else {
         $('.training_area').addClass('d-none');
         $('.message_area').removeClass('d-none');
-  
+
         var trainDataRef = firebase.database().ref('trainData');
         trainDataRef.push().set({
           input: binary_message,
@@ -228,24 +204,34 @@ $(document).ready(function() {
             [botTalk.length + 1]: 1
           }
         });
-  
+
         var botTalkRef = firebase.database().ref('botTalk');
         botTalkRef.push().set($('.train_input').val());
-  
+
         net = new brain.NeuralNetwork();
-  
+
         //Training the AI
         net.train(trainData, {
           log: false,
           logPeriod: 10,
           errorThresh: 0.0005,
         });
-  
+
         alert("Tudo certo! Obrigada por me tornar mais inteligente!");
-  
+
         $('.message_input').val('');
         $('.train_input').val('');
       }
+    }
+  };
+
+  $('.send_train').click(function() {
+    verifyTrain();
+  });
+
+  $('.train_input').keyup(function(e) {
+    if (e.which === 13) {
+      verifyTrain();
     }
   });
 
