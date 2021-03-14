@@ -88,7 +88,7 @@ $(document).ready(function() {
   function sendMessage(text) {
     // reset input value
     $('.message_input').val('');
-
+  
     message_side = message_side === 'left' ? 'right' : 'left';
 
     var message = $($('.message_template').clone().html());
@@ -106,35 +106,41 @@ $(document).ready(function() {
 
   var binary_message;
 
-  $('.send_message').click(function() {
-    if ($('.message_input').val() != '') {
-      binary_message = textToBinary($('.message_input').val());
+  var badwords = [];
 
-      sendMessage($('.message_input').val());
-
-      var result = brain.likely(binary_message, net);
-
-      for (k = 1; k <= botTalk.length; k++) {
-        if (result == k) {
-          delayVar = k;
-          setTimeout(function() {
-            sendMessage(botTalk[delayVar - 1]);
-            hasResponse = true;
-          }, 800);
-        }
-      }
-    }
+  $.get("https://run.mocky.io/v3/db8ebf66-83a5-47c9-bc5f-6246f7853002", function (data) {
+    data.badwords.forEach(function (badword) {
+      badwords.push(badword.toUpperCase());
+    });
   });
 
-  $('.message_input').keyup(function(e) {
-    if (e.which === 13) {
-      if ($('.message_input').val() != '') {
-        binary_message = textToBinary($('.message_input').val());
+  function hasBadWord(text) {
+    var isTrue = false;
+    var text_words = text.split(' ');
 
-        sendMessage($('.message_input').val());
+    text_words.forEach(function(word) {
+      badwords.forEach(function(badword) {
+        if (word.toUpperCase() === badword) {
+          isTrue = true;
+        }
+      });
+    });
+    return isTrue;
+  }
 
+  function verifyMessage() {
+    var input = $('.message_input').val();
+    if (input != '') {
+      if (hasBadWord(input)) {
+        alert("Sem palavrões, por favor.");
+        $('.message_input').val('');
+      } else {
+        binary_message = textToBinary(input);
+  
+        sendMessage(input);
+  
         var result = brain.likely(binary_message, net);
-
+  
         for (k = 1; k <= botTalk.length; k++) {
           if (result == k) {
             delayVar = k;
@@ -145,6 +151,16 @@ $(document).ready(function() {
           }
         }
       }
+    }
+  }
+
+  $('.send_message').click(function() {
+    verifyMessage();
+  });
+
+  $('.message_input').keyup(function(e) {
+    if (e.which === 13) {
+      verifyMessage();
     }
   });
 
