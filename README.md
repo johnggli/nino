@@ -24,7 +24,7 @@
 ---
 
 <p align="center">
-  <img alt="Layout" src="https://user-images.githubusercontent.com/43749971/77254747-c0b54280-6c41-11ea-81a0-a597ee22b56e.png">
+  <img alt="Layout" src="https://user-images.githubusercontent.com/43749971/111230484-76517200-85c6-11eb-833d-9a01814e2a31.gif">
 </p>
 
 ---
@@ -33,7 +33,7 @@
 
 - This is an open source project that serves as a free alternative to the Linktree website, made only in html and css.
 
-- [Deploy](https://ninoai.netlify.app)
+- [Demo](https://ninoai.netlify.app)
 
 ## :rocket: Getting started
 
