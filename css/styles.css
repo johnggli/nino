@@ -1,6 +1,7 @@
 :root {
   --primary: #03A9F4;
   --secondary: #07E092;
+  --background: #121212;
   --gray: #BCBDC0;
   --textLeft: #121212;
   --textLeftBackground: #DCDCDC;
@@ -13,7 +14,7 @@
 }
 
 body {
-  background-color: #edeff2;
+  background-color: var(--background);
   font-family: "Calibri", "Roboto", sans-serif;
 }
 
@@ -27,9 +28,10 @@ body {
   justify-content: center;
   position: fixed;
   opacity: 0.7;
-  background-color: #fff;
+  background-color: var(--background);
   z-index: 99;
   text-align: center;
+  color: #fff;
 }
 
 .chat_window {
