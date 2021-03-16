@@ -55,13 +55,13 @@ const firebaseConfig = {
 // js/config.js
 
 var config = {
-  apiKey: "000000000000000000000000000000000000000",
-  authDomain: "nino.firebaseapp.com",
-  databaseURL: "https://nino-default-rtdb.firebaseio.com",
-  projectId: "nino",
-  storageBucket: "nino.appspot.com",
-  messagingSenderId: "000000000000",
-  appId: "1:000000000000:web:0000000000000000000000"
+  API_KEY: '000000000000000000000000000000000000000',
+  AUTH_DOMAIN: 'nino.firebaseapp.com',
+  DATABASE_URL: 'https://nino-default-rtdb.firebaseio.com',
+  PROJECT_ID: 'nino',
+  STORAGE_BUCKET: 'nino.appspot.com',
+  MESSAGING_SENDER_ID: '000000000000',
+  APP_ID: '1:000000000000:web:0000000000000000000000'
 };
 ```
 - Now, open the `index.html` file in your browser and have fun!
