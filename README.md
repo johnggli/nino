@@ -33,11 +33,38 @@
 
 - This is an open source project of an artificial intelligence chatbot capable of learning new answers. This project was done using html, css (Bootstrap 4), javascript (JQuery) and Firebase.
 
-- <a href="https://ninoai.netlify.app" target="_blank">Live demo</a>
+- [Live demo](https://ninoai.netlify.app)
 
 ## :rocket: Getting started
 
-- After downloading this repository, make changes to images and text in the `index.html` file. If desired, change the colors and fonts in the `style.css` file.
+- First, go to the [Firebase Console](https://console.firebase.google.com) and create a new project.
+- Once created, click on `add app` and select the `web` option, give the app a nickname and then copy the app’s configuration, which looks something like this:
+```javascript
+const firebaseConfig = {
+  apiKey: "AIzaSyC8wThSRz43dlM3AM0IDGX80Mwchw9AAAA",
+  authDomain: "nino-ai.firebaseapp.com",
+  databaseURL: "https://nino-ai-default-rtdb.firebaseio.com",
+  projectId: "nino-ai",
+  storageBucket: "nino-ai.appspot.com",
+  messagingSenderId: "884545220000",
+  appId: "1:884545220000:web:07e55026f72c392dceAAAA"
+};
+```
+- Finally, create a file called `config.js` inside the `js` folder and paste the configuration into it, exactly as below:
+```javascript
+// js/config.js
+
+var config = {
+  apiKey: "AIzaSyC8wThSRz43dlM3AM0IDGX80Mwchw9AAAA",
+  authDomain: "nino-ai.firebaseapp.com",
+  databaseURL: "https://nino-ai-default-rtdb.firebaseio.com",
+  projectId: "nino-ai",
+  storageBucket: "nino-ai.appspot.com",
+  messagingSenderId: "884545220000",
+  appId: "1:884545220000:web:07e55026f72c392dceAAAA"
+};
+```
+- Now, open the `index.html` file in your browser and have fun!
 
 ---
 
