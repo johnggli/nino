@@ -31,9 +31,9 @@
 
 ## :bulb: About the project
 
-- This is an open source project that serves as a free alternative to the Linktree website, made only in html and css.
+- This is an open source project of an artificial intelligence chatbot capable of learning new answers. This project was done using html, css (Bootstrap 4), javascript (JQuery) and Firebase.
 
-- [Demo](https://ninoai.netlify.app)
+- <a href="https://ninoai.netlify.app" target="_blank">Live demo</a>
 
 ## :rocket: Getting started
 
