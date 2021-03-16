@@ -41,13 +41,13 @@
 - Once created, click on `add app` and select the `web` option, give the app a nickname and then copy the app’s configuration, which looks something like this:
 ```javascript
 const firebaseConfig = {
-  apiKey: "AIzaSyC8wThSRz43dlM3AM0IDGX80Mwchw9AAAA",
-  authDomain: "nino-ai.firebaseapp.com",
-  databaseURL: "https://nino-ai-default-rtdb.firebaseio.com",
-  projectId: "nino-ai",
-  storageBucket: "nino-ai.appspot.com",
-  messagingSenderId: "884545220000",
-  appId: "1:884545220000:web:07e55026f72c392dceAAAA"
+  apiKey: "000000000000000000000000000000000000000",
+  authDomain: "nino.firebaseapp.com",
+  databaseURL: "https://nino-default-rtdb.firebaseio.com",
+  projectId: "nino",
+  storageBucket: "nino.appspot.com",
+  messagingSenderId: "000000000000",
+  appId: "1:000000000000:web:0000000000000000000000"
 };
 ```
 - Finally, create a file called `config.js` inside the `js` folder and paste the configuration into it, exactly as below:
@@ -55,13 +55,13 @@ const firebaseConfig = {
 // js/config.js
 
 var config = {
-  apiKey: "AIzaSyC8wThSRz43dlM3AM0IDGX80Mwchw9AAAA",
-  authDomain: "nino-ai.firebaseapp.com",
-  databaseURL: "https://nino-ai-default-rtdb.firebaseio.com",
-  projectId: "nino-ai",
-  storageBucket: "nino-ai.appspot.com",
-  messagingSenderId: "884545220000",
-  appId: "1:884545220000:web:07e55026f72c392dceAAAA"
+  apiKey: "000000000000000000000000000000000000000",
+  authDomain: "nino.firebaseapp.com",
+  databaseURL: "https://nino-default-rtdb.firebaseio.com",
+  projectId: "nino",
+  storageBucket: "nino.appspot.com",
+  messagingSenderId: "000000000000",
+  appId: "1:000000000000:web:0000000000000000000000"
 };
 ```
 - Now, open the `index.html` file in your browser and have fun!
