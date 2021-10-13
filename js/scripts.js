@@ -42,7 +42,7 @@ $(document).ready(function() {
   });
 
   //***********Machine learning**************
-  const net = new brain.NeuralNetwork({
+  var net = new brain.NeuralNetwork({
     activation: 'sigmoid',
     // hiddenLayers: [4],
     iterations: 100,
@@ -212,10 +212,18 @@ $(document).ready(function() {
         var botTalkRef = firebase.database().ref('botTalk');
         botTalkRef.push().set($('.train_input').val());
 
-        net = new brain.NeuralNetwork();
+        net = new brain.NeuralNetwork({
+          activation: 'sigmoid',
+          // hiddenLayers: [4],
+          iterations: 100,
+          learningRate: 0.9
+        });
 
         //Training the AI
-        net.train(trainData);
+        net.train(trainData, {
+          log: true,
+          logPeriod: 1,
+        });
 
         alert("Tudo certo! Obrigada por me tornar mais inteligente!");
 

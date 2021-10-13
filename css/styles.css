@@ -32,6 +32,11 @@ body {
   z-index: 99;
   text-align: center;
   color: #fff;
+  flex-direction: column;
+}
+
+.loading-text {
+  margin-top: 10px;
 }
 
 .chat_window {
