@@ -39,12 +39,15 @@ $(document).ready(function() {
       var botTalkRef = firebase.database().ref('botTalk');
       botTalkRef.push().set("hello world");
     }
-
-    $('.loading').hide();
   });
 
   //***********Machine learning**************
-  var net = new brain.NeuralNetwork();
+  const net = new brain.NeuralNetwork({
+    activation: 'sigmoid',
+    // hiddenLayers: [4],
+    iterations: 100,
+    learningRate: 0.9
+  });
   var trainData = [];
   var maxLength = 0;
   var remainingLength = 0;
@@ -81,10 +84,11 @@ $(document).ready(function() {
 
     //Training
     net.train(trainData, {
-      log: false,
-      logPeriod: 10,
-      errorThresh: 0.0005,
+      log: true,
+      logPeriod: 1,
     }); //Using all the training data to train the AI
+
+    $('.loading').hide();
   });
 
   var message_side = 'left';
@@ -211,11 +215,7 @@ $(document).ready(function() {
         net = new brain.NeuralNetwork();
 
         //Training the AI
-        net.train(trainData, {
-          log: false,
-          logPeriod: 10,
-          errorThresh: 0.0005,
-        });
+        net.train(trainData);
 
         alert("Tudo certo! Obrigada por me tornar mais inteligente!");
 
