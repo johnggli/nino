@@ -44,8 +44,7 @@ $(document).ready(function() {
   //***********Machine learning**************
   var net = new brain.NeuralNetwork({
     activation: 'sigmoid',
-    // hiddenLayers: [4],
-    iterations: 100,
+    iterations: 128,
     learningRate: 0.9
   });
   var trainData = [];
@@ -82,11 +81,22 @@ $(document).ready(function() {
       }
     }
 
-    //Training
-    net.train(trainData, {
-      log: true,
-      logPeriod: 1,
-    }); //Using all the training data to train the AI
+    firebase.database().ref('jsonData').on('value', function(snapshot) {
+      var json = JSON.parse(snapshot.val());
+      if (json) {
+        net.fromJSON(json);
+      } else {
+        //Training
+        net.train(trainData, {
+          log: true,
+          logPeriod: 1,
+        }); //Using all the training data to train the AI
+  
+        var toJson = net.toJSON();
+        var jsonDataRef = firebase.database().ref('jsonData');
+        jsonDataRef.set(JSON.stringify(toJson));
+      }
+    });
 
     $('.loading').hide();
   });
@@ -214,8 +224,7 @@ $(document).ready(function() {
 
         net = new brain.NeuralNetwork({
           activation: 'sigmoid',
-          // hiddenLayers: [4],
-          iterations: 100,
+          iterations: 128,
           learningRate: 0.9
         });
 
@@ -224,6 +233,10 @@ $(document).ready(function() {
           log: true,
           logPeriod: 1,
         });
+
+        var toJson = net.toJSON();
+        var jsonDataRef = firebase.database().ref('jsonData');
+        jsonDataRef.set(JSON.stringify(toJson));
 
         alert("Tudo certo! Obrigada por me tornar mais inteligente!");
 
