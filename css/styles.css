@@ -15,7 +15,7 @@
 
 body {
   background-color: var(--background);
-  font-family: "Calibri", "Roboto", sans-serif;
+  /* font-family: "Calibri", "Roboto", sans-serif; */
 }
 
 .loading {
