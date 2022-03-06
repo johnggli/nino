@@ -12,6 +12,20 @@ $(document).ready(function() {
   firebase.initializeApp(firebaseConfig);
 
 
+  // Configure brain
+  var brainConfig = {
+    iterations: 1000, // the maximum times to iterate the training data --> number greater than 0
+    errorThresh: 0.005, // the acceptable error percentage from training data --> number between 0 and 1
+    log: true, // true to use console.log, when a function is supplied it is used --> Either true or a function
+    logPeriod: 1, // iterations between logging out --> number greater than 0
+    learningRate: 0.6, // scales with delta to effect training rate --> number between 0 and 1
+    momentum: 0.1, // scales with next layer's change value --> number between 0 and 1
+    callback: null, // a periodic call back that can be triggered while training --> null or function
+    callbackPeriod: 10, // the number of iterations through the training data between callback calls --> number greater than 0
+    timeout: Infinity
+  }
+
+
   // Authentication
   $('.login').submit(function(e) {
     e.preventDefault();
@@ -117,17 +131,7 @@ $(document).ready(function() {
       });
 
       //***********Machine learning**************
-      var net = new brain.NeuralNetwork({
-        iterations: 20000, // the maximum times to iterate the training data --> number greater than 0
-        errorThresh: 0.005, // the acceptable error percentage from training data --> number between 0 and 1
-        log: false, // true to use console.log, when a function is supplied it is used --> Either true or a function
-        logPeriod: 10, // iterations between logging out --> number greater than 0
-        learningRate: 0.3, // scales with delta to effect training rate --> number between 0 and 1
-        momentum: 0.1, // scales with next layer's change value --> number between 0 and 1
-        callback: null, // a periodic call back that can be triggered while training --> null or function
-        callbackPeriod: 10, // the number of iterations through the training data between callback calls --> number greater than 0
-        timeout: Infinity
-      });
+      var net = new brain.NeuralNetwork(brainConfig);
       var trainData = [];
       var maxLength = 0;
       var remainingLength = 0;
@@ -168,10 +172,7 @@ $(document).ready(function() {
             net.fromJSON(json);
           } else {
             //Training
-            net.train(trainData, {
-              log: true,
-              logPeriod: 1,
-            }); //Using all the training data to train the AI
+            net.train(trainData); //Using all the training data to train the AI
       
             var toJson = net.toJSON();
             var jsonDataRef = firebase.database().ref('users/' + uid + '/jsonData');
@@ -221,6 +222,7 @@ $(document).ready(function() {
               setTimeout(function() {
                 sendMessage(botTalk[delayVar - 1]);
                 hasResponse = true;
+                $('.edit_answer').show();
               }, 800);
             }
           }
@@ -255,6 +257,24 @@ $(document).ready(function() {
         $('.message_area').show();
       })
 
+      function successfulTrained() {
+        $('.edit_answer').hide();
+
+        message_side = 'left';
+
+        var message = $($('.message_template').clone().html());
+
+        message.addClass(message_side).find('.text').html('All right! Thanks for making me smarter!');
+
+        $('.messages').append(message);
+
+        message.addClass('appeared');
+
+        $('.messages').animate({
+          scrollTop: $('.messages').prop('scrollHeight')
+        }, 300);
+      }
+
       function verifyTrain() {
         var input = $('.train_input').val();
         if (input != '') {
@@ -272,29 +292,16 @@ $(document).ready(function() {
           var botTalkRef = firebase.database().ref('users/' + uid + '/botTalk');
           botTalkRef.push().set($('.train_input').val());
 
-          net = new brain.NeuralNetwork({
-            iterations: 20000, // the maximum times to iterate the training data --> number greater than 0
-            errorThresh: 0.005, // the acceptable error percentage from training data --> number between 0 and 1
-            log: false, // true to use console.log, when a function is supplied it is used --> Either true or a function
-            logPeriod: 10, // iterations between logging out --> number greater than 0
-            learningRate: 0.3, // scales with delta to effect training rate --> number between 0 and 1
-            momentum: 0.1, // scales with next layer's change value --> number between 0 and 1
-            callback: null, // a periodic call back that can be triggered while training --> null or function
-            callbackPeriod: 10, // the number of iterations through the training data between callback calls --> number greater than 0
-            timeout: Infinity
-          });
+          net = new brain.NeuralNetwork(brainConfig);
 
           //Training the AI
-          net.train(trainData, {
-            log: true,
-            logPeriod: 1,
-          });
+          net.train(trainData);
 
           var toJson = net.toJSON();
           var jsonDataRef = firebase.database().ref('users/' + uid + '/jsonData');
           jsonDataRef.set(JSON.stringify(toJson));
 
-          alert('All right! Thanks for making me smarter!');
+          successfulTrained();
 
           $('.message_input').val('');
           $('.train_input').val('');
@@ -302,12 +309,14 @@ $(document).ready(function() {
       };
 
       $('.send_train').click(function() {
-        verifyTrain();
+        $('.loading').show();
+        window.setTimeout(verifyTrain, 100);
       });
 
       $('.train_input').keyup(function(e) {
         if (e.which === 13) {
-          verifyTrain();
+          $('.loading').show();
+          window.setTimeout(verifyTrain, 100);
         }
       });
 
