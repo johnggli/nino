@@ -242,8 +242,8 @@ $(document).ready(function() {
         if (hasResponse) {
           $('.messages').children().last().children().last().children().last().css('color', '#F44D3C');
 
-          $('.training_area').removeClass('d-none');
-          $('.message_area').addClass('d-none');
+          $('.training_area').show();
+          $('.message_area').hide();
         } else {
           alert('First, send a message to Nino.');
         }
@@ -251,15 +251,15 @@ $(document).ready(function() {
 
       $('.cancel').click(function() {
         $('.messages').children().last().children().last().children().last().css('color', '#121212');
-        $('.training_area').addClass('d-none');
-        $('.message_area').removeClass('d-none');
+        $('.training_area').hide();
+        $('.message_area').show();
       })
 
       function verifyTrain() {
         var input = $('.train_input').val();
         if (input != '') {
-          $('.training_area').addClass('d-none');
-          $('.message_area').removeClass('d-none');
+          $('.training_area').hide();
+          $('.message_area').show();
 
           var trainDataRef = firebase.database().ref('users/' + uid + '/trainData');
           trainDataRef.push().set({
