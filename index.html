@@ -16,23 +16,41 @@
 <body>
   <div class="loading">
     <div class="spinner-border" role="status"></div>
-    <div class="loading-text">Carregando...</div>
+    <div class="loading-text">Loading...</div>
   </div>
 
-  <div class="login" style="display: none;">
-    <form class="daleee">
+  <div class="auth login" style="display: none;">
+    <form>
       <h2 class="text-center">Log in</h2>
       <div class="form-group">
-        <input type="email" class="form-control email_input" placeholder="Email" required="required">
+        <input id="login_email" type="email" class="form-control" placeholder="Email" required="required">
       </div>
       <div class="form-group">
-        <input type="password" class="form-control password_input" placeholder="Password" required="required">
+        <input id="login_password" type="password" class="form-control" placeholder="Password" required="required">
       </div>
       <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-block">Login</button>
+        <button type="submit" class="btn btn-block">Log In</button>
       </div>
       <div class="clearfix">
-        <p class="text-center"><a href="#">Create an Account</a></p>
+        <p class="text-center signup_link">Sign Up</p>
+      </div>
+    </form>
+  </div>
+
+  <div class="auth signup" style="display: none;">
+    <form>
+      <h2 class="text-center">Sign Up</h2>
+      <div class="form-group">
+        <input id="signup_email" type="email" class="form-control" placeholder="Email" required="required">
+      </div>
+      <div class="form-group">
+        <input id="signup_password" type="password" class="form-control" placeholder="Password" required="required">
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-block">Sign Up</button>
+      </div>
+      <div class="clearfix">
+        <p class="text-center login_link">Log in</p>
       </div>
     </form>
   </div>
@@ -57,25 +75,25 @@
   
       <div class="bottom_wrapper clearfix message_area">
         <div class="message_input_wrapper">
-          <input class="message_input" placeholder="Digite uma mensagem" />
+          <input class="message_input" placeholder="Type a message" />
         </div>
         <div class="send_message">
           <div class="icon"></div>
-          <div class="text">Enviar</div>
+          <div class="text">Send</div>
         </div>
       </div>
   
       <div class="bottom_wrapper clearfix training_area d-none">
         <div class="message_input_wrapper">
-          <input class="train_input" placeholder="Digite uma boa resposta" />
+          <input class="train_input" placeholder="Type a good answer" />
         </div>
         <div class="send_train">
           <div class="icon"></div>
-          <div class="text">Treinar</div>
+          <div class="text">Train</div>
         </div>
         <div class="cancel">
           <div class="icon"></div>
-          <div class="text">Cancelar</div>
+          <div class="text">Cancel</div>
         </div>
       </div>
     </div>
@@ -85,7 +103,7 @@
           <i class="material-icons">edit</i>
         </div>
         <div class="hello_message">
-          Bem-vindo ao chat da IA Nino, clique no botão de editar para alterar a resposta da Nino e assim ensiná-la a aprender!
+          Welcome to Nino's AI chat, click the edit button to change Nino's answer and teach her how to learn!
         </div>
       </li>
     </div>

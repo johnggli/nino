@@ -8,6 +8,7 @@
   --textRight: #FFF;
   --textRightBackground: #03A9F4;
   --danger: #F44D3C;
+  --dark: #032541;
 }
 
 * {
@@ -40,7 +41,7 @@ body {
   margin-top: 10px;
 }
 
-.login {
+.auth {
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -56,24 +57,39 @@ body {
   overflow: hidden;
 }
 
-.login form {
+.auth form {
   margin-bottom: 15px;
   background: #f7f7f7;
   padding: 30px;
 }
 
-.login h2 {
+.auth h2 {
   margin: 0 0 15px;
 }
 
-.login .form-control, .btn {
+.auth .form-control, .btn {
   min-height: 38px;
   border-radius: 2px;
 }
 
-.login .btn {        
+.auth .btn {        
   font-size: 15px;
   font-weight: bold;
+  color: white;
+  background-color: var(--primary);
+}
+.auth .btn:hover {        
+  opacity: 0.8;
+}
+
+.signup_link,
+.login_link {
+  color: var(--primary);
+  cursor: pointer;
+}
+.signup_link:hover,
+.login_link:hover {
+  opacity: 0.8;
 }
 
 .userOptions {

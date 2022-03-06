@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  // Initialize Firebase
   var firebaseConfig = {
     apiKey: config.API_KEY,
     authDomain: config.AUTH_DOMAIN,
@@ -8,17 +9,15 @@ $(document).ready(function() {
     messagingSenderId: config.MESSAGING_SENDER_ID,
     appId: config.APP_ID
   };
-
-  // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 
-  // Login
+
+  // Authentication
   $('.login').submit(function(e) {
     e.preventDefault();
-
     $('.loading').show();
-    var email = $('.email_input').val();
-    var password = $('.password_input').val();
+    var email = $('#login_email').val();
+    var password = $('#login_password').val();
     
     firebase.auth().signInWithEmailAndPassword(email, password)
     .then((userCredential) => {
@@ -33,7 +32,35 @@ $(document).ready(function() {
     });
   });
 
-  // Logout
+  $('.signup').submit(function(e) {
+    e.preventDefault();
+    $('.loading').show();
+    var email = $('#signup_email').val();
+    var password = $('#signup_password').val();
+    
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      // Signed in 
+      var user = userCredential.user;
+      // ...
+    })
+    .catch((error) => {
+      // An error happened.
+      var errorMessage = error.message;
+      alert('Error: ' + errorMessage);
+    });
+  });
+
+  $('.signup_link').click(function() {
+    $('.login').hide();
+    $('.signup').show();
+  });
+
+  $('.login_link').click(function() {
+    $('.login').show();
+    $('.signup').hide();
+  });
+
   $('.logout_button').click(function() {
     firebase.auth().signOut().then(() => {
       // Sign-out successful.
@@ -44,7 +71,6 @@ $(document).ready(function() {
       alert('Error: ' + errorMessage);
     });
   });
-
 
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
@@ -154,7 +180,6 @@ $(document).ready(function() {
         });
 
         $('.loading').hide();
-        console.log('daleee')
       });
 
       var message_side = 'left';
@@ -181,49 +206,22 @@ $(document).ready(function() {
 
       var binary_message;
 
-      var badwords = [];
-
-      $.get('https://run.mocky.io/v3/db8ebf66-83a5-47c9-bc5f-6246f7853002', function(data) {
-        data.badwords.forEach(function(badword) {
-          badwords.push(badword.toUpperCase());
-        });
-      });
-
-      function hasBadWord(text) {
-        var isTrue = false;
-        var text_words = text.split(' ');
-
-        text_words.forEach(function(word) {
-          badwords.forEach(function(badword) {
-            if (word.toUpperCase() === badword) {
-              isTrue = true;
-            }
-          });
-        });
-        return isTrue;
-      }
-
       function verifyMessage() {
         var input = $('.message_input').val();
         if (input != '') {
-          if (hasBadWord(input)) {
-            alert('Sem palavrões, por favor.');
-            $('.message_input').val('');
-          } else {
-            binary_message = textToBinary(input);
+          binary_message = textToBinary(input);
 
-            sendMessage(input);
+          sendMessage(input);
 
-            var result = brain.likely(binary_message, net);
+          var result = brain.likely(binary_message, net);
 
-            for (k = 1; k <= botTalk.length; k++) {
-              if (result == k) {
-                delayVar = k;
-                setTimeout(function() {
-                  sendMessage(botTalk[delayVar - 1]);
-                  hasResponse = true;
-                }, 800);
-              }
+          for (k = 1; k <= botTalk.length; k++) {
+            if (result == k) {
+              delayVar = k;
+              setTimeout(function() {
+                sendMessage(botTalk[delayVar - 1]);
+                hasResponse = true;
+              }, 800);
             }
           }
         }
@@ -242,12 +240,12 @@ $(document).ready(function() {
 
       $('.edit_answer').click(function() {
         if (hasResponse) {
-          $('.messages').children().last().children().last().children().last().css('color', '#ff6677');
+          $('.messages').children().last().children().last().children().last().css('color', '#F44D3C');
 
           $('.training_area').removeClass('d-none');
           $('.message_area').addClass('d-none');
         } else {
-          alert('Primeiro, envie uma mensagem para a Nino.');
+          alert('First, send a message to Nino.');
         }
       })
 
@@ -260,51 +258,46 @@ $(document).ready(function() {
       function verifyTrain() {
         var input = $('.train_input').val();
         if (input != '') {
-          if (hasBadWord(input)) {
-            alert('Sem palavrões, por favor.');
-            $('.train_input').val('');
-          } else {
-            $('.training_area').addClass('d-none');
-            $('.message_area').removeClass('d-none');
+          $('.training_area').addClass('d-none');
+          $('.message_area').removeClass('d-none');
 
-            var trainDataRef = firebase.database().ref('users/' + uid + '/trainData');
-            trainDataRef.push().set({
-              input: binary_message,
-              output: {
-                [botTalk.length + 1]: 1
-              }
-            });
+          var trainDataRef = firebase.database().ref('users/' + uid + '/trainData');
+          trainDataRef.push().set({
+            input: binary_message,
+            output: {
+              [botTalk.length + 1]: 1
+            }
+          });
 
-            var botTalkRef = firebase.database().ref('users/' + uid + '/botTalk');
-            botTalkRef.push().set($('.train_input').val());
+          var botTalkRef = firebase.database().ref('users/' + uid + '/botTalk');
+          botTalkRef.push().set($('.train_input').val());
 
-            net = new brain.NeuralNetwork({
-              iterations: 20000, // the maximum times to iterate the training data --> number greater than 0
-              errorThresh: 0.005, // the acceptable error percentage from training data --> number between 0 and 1
-              log: false, // true to use console.log, when a function is supplied it is used --> Either true or a function
-              logPeriod: 10, // iterations between logging out --> number greater than 0
-              learningRate: 0.3, // scales with delta to effect training rate --> number between 0 and 1
-              momentum: 0.1, // scales with next layer's change value --> number between 0 and 1
-              callback: null, // a periodic call back that can be triggered while training --> null or function
-              callbackPeriod: 10, // the number of iterations through the training data between callback calls --> number greater than 0
-              timeout: Infinity
-            });
+          net = new brain.NeuralNetwork({
+            iterations: 20000, // the maximum times to iterate the training data --> number greater than 0
+            errorThresh: 0.005, // the acceptable error percentage from training data --> number between 0 and 1
+            log: false, // true to use console.log, when a function is supplied it is used --> Either true or a function
+            logPeriod: 10, // iterations between logging out --> number greater than 0
+            learningRate: 0.3, // scales with delta to effect training rate --> number between 0 and 1
+            momentum: 0.1, // scales with next layer's change value --> number between 0 and 1
+            callback: null, // a periodic call back that can be triggered while training --> null or function
+            callbackPeriod: 10, // the number of iterations through the training data between callback calls --> number greater than 0
+            timeout: Infinity
+          });
 
-            //Training the AI
-            net.train(trainData, {
-              log: true,
-              logPeriod: 1,
-            });
+          //Training the AI
+          net.train(trainData, {
+            log: true,
+            logPeriod: 1,
+          });
 
-            var toJson = net.toJSON();
-            var jsonDataRef = firebase.database().ref('users/' + uid + '/jsonData');
-            jsonDataRef.set(JSON.stringify(toJson));
+          var toJson = net.toJSON();
+          var jsonDataRef = firebase.database().ref('users/' + uid + '/jsonData');
+          jsonDataRef.set(JSON.stringify(toJson));
 
-            alert('Tudo certo! Obrigada por me tornar mais inteligente!');
+          alert('All right! Thanks for making me smarter!');
 
-            $('.message_input').val('');
-            $('.train_input').val('');
-          }
+          $('.message_input').val('');
+          $('.train_input').val('');
         }
       };
 
@@ -317,7 +310,6 @@ $(document).ready(function() {
           verifyTrain();
         }
       });
-
 
       function textToBinary(text) {
         //Storing all letters as binary numbers for AI
