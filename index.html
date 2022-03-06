@@ -20,15 +20,31 @@
   </div>
 
   <div class="login" style="display: none;">
-    <h3>Login with firebase kekw</h3>
-    <input type="email" placeholder="Email" class="email_field">
-    <input type="password" placeholder="Password" class="password_field">
-
-    <button class="login_button">login</button>
+    <form class="daleee">
+      <h2 class="text-center">Log in</h2>
+      <div class="form-group">
+        <input type="email" class="form-control email_input" placeholder="Email" required="required">
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control password_input" placeholder="Password" required="required">
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block">Login</button>
+      </div>
+      <div class="clearfix">
+        <p class="text-center"><a href="#">Create an Account</a></p>
+      </div>
+    </form>
   </div>
 
   <div class="logged" style="display: none;">
-    <button class="logout_button">logout</button>
+    <li class="dropdown" style="list-style: none;">
+      <a href="#" class="dropdown-toggle userOptions" data-toggle="dropdown"><span></span> <b class="caret"></b></a>
+      <ul class="dropdown-menu">
+        <li class="logout_button">Logout</li>
+      </ul>
+    </li>
+
     <div class="chat_window">
       <div class="top_menu">
         <div class="title">Nino</div>

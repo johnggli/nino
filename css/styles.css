@@ -1,12 +1,13 @@
 :root {
   --primary: #03A9F4;
-  --secondary: #07E092;
+  --secondary: #21D07A;
   --background: #121212;
   --gray: #BCBDC0;
   --textLeft: #121212;
   --textLeftBackground: #DCDCDC;
   --textRight: #FFF;
   --textRightBackground: #03A9F4;
+  --danger: #F44D3C;
 }
 
 * {
@@ -37,6 +38,66 @@ body {
 
 .loading-text {
   margin-top: 10px;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: calc(100% - 20px);
+  max-width: 350px;
+  border-radius: 10px;
+  background-color: #fff;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  background-color: #f8f8f8;
+  overflow: hidden;
+}
+
+.login form {
+  margin-bottom: 15px;
+  background: #f7f7f7;
+  padding: 30px;
+}
+
+.login h2 {
+  margin: 0 0 15px;
+}
+
+.login .form-control, .btn {
+  min-height: 38px;
+  border-radius: 2px;
+}
+
+.login .btn {        
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.userOptions {
+  position: absolute;
+  right: 0;
+  margin: 8px 16px;
+  color: var(--textRight);
+}
+.userOptions:hover {
+  color: var(--textRight);
+  opacity: 0.8;
+}
+
+.logout_button {
+  font-size: 15px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+}
+.logout_button:hover {
+  color: var(--danger);
 }
 
 .chat_window {
@@ -74,8 +135,8 @@ body {
   position: absolute;
   right: 0;
   top: 16px;
-  width: 34px;
-  height: 34px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   background-color: var(--primary);
   margin-right: 20px;

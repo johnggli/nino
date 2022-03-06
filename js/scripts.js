@@ -13,10 +13,12 @@ $(document).ready(function() {
   firebase.initializeApp(firebaseConfig);
 
   // Login
-  $('.login_button').click(function() {
+  $('.login').submit(function(e) {
+    e.preventDefault();
+
     $('.loading').show();
-    var email = $('.email_field').val();
-    var password = $('.password_field').val();
+    var email = $('.email_input').val();
+    var password = $('.password_input').val();
     
     firebase.auth().signInWithEmailAndPassword(email, password)
     .then((userCredential) => {
@@ -50,7 +52,10 @@ $(document).ready(function() {
       // https://firebase.google.com/docs/reference/js/firebase.User
 
       var uid = user.uid;
+      var uemail = user.email;
       // console.log(uid);
+
+      $('.userOptions span').text(uemail);
       
       $('.loading').show();
       $('.login').hide();
