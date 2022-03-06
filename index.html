@@ -16,60 +16,71 @@
 <body>
   <div class="loading">
     <div class="spinner-border" role="status"></div>
-    <div class="loading-text">Aprendendo...</div>
+    <div class="loading-text">Carregando...</div>
   </div>
 
-  <div class="chat_window">
-    <div class="top_menu">
-      <div class="title">Nino</div>
-      <button class="btn edit_answer">
-        <i class="material-icons">edit</i>
-      </button>
-    </div>
+  <div class="login" style="display: none;">
+    <h3>Login with firebase kekw</h3>
+    <input type="email" placeholder="Email" class="email_field">
+    <input type="password" placeholder="Password" class="password_field">
 
-    <ul class="messages"></ul>
-
-    <div class="bottom_wrapper clearfix message_area">
-      <div class="message_input_wrapper">
-        <input class="message_input" placeholder="Digite uma mensagem" />
-      </div>
-      <div class="send_message">
-        <div class="icon"></div>
-        <div class="text">Enviar</div>
-      </div>
-    </div>
-
-    <div class="bottom_wrapper clearfix training_area d-none">
-      <div class="message_input_wrapper">
-        <input class="train_input" placeholder="Digite uma boa resposta" />
-      </div>
-      <div class="send_train">
-        <div class="icon"></div>
-        <div class="text">Treinar</div>
-      </div>
-      <div class="cancel">
-        <div class="icon"></div>
-        <div class="text">Cancelar</div>
-      </div>
-    </div>
+    <button class="login_button">login</button>
   </div>
-  <div class="hello_template">
-    <li class="hello">
-      <div class="edit_icon">
-        <i class="material-icons">edit</i>
+
+  <div class="logged" style="display: none;">
+    <button class="logout_button">logout</button>
+    <div class="chat_window">
+      <div class="top_menu">
+        <div class="title">Nino</div>
+        <button class="btn edit_answer">
+          <i class="material-icons">edit</i>
+        </button>
       </div>
-      <div class="hello_message">
-        Bem-vindo ao chat da IA Nino, clique no botão de editar para alterar a resposta da Nino e assim ensiná-la a aprender!
+  
+      <ul class="messages"></ul>
+  
+      <div class="bottom_wrapper clearfix message_area">
+        <div class="message_input_wrapper">
+          <input class="message_input" placeholder="Digite uma mensagem" />
+        </div>
+        <div class="send_message">
+          <div class="icon"></div>
+          <div class="text">Enviar</div>
+        </div>
       </div>
-    </li>
-  </div>
-  <div class="message_template">
-    <li class="message">
-      <!-- <div class="avatar"></div> -->
-      <div class="text_wrapper">
-        <div class="text"></div>
+  
+      <div class="bottom_wrapper clearfix training_area d-none">
+        <div class="message_input_wrapper">
+          <input class="train_input" placeholder="Digite uma boa resposta" />
+        </div>
+        <div class="send_train">
+          <div class="icon"></div>
+          <div class="text">Treinar</div>
+        </div>
+        <div class="cancel">
+          <div class="icon"></div>
+          <div class="text">Cancelar</div>
+        </div>
       </div>
-    </li>
+    </div>
+    <div class="hello_template">
+      <li class="hello">
+        <div class="edit_icon">
+          <i class="material-icons">edit</i>
+        </div>
+        <div class="hello_message">
+          Bem-vindo ao chat da IA Nino, clique no botão de editar para alterar a resposta da Nino e assim ensiná-la a aprender!
+        </div>
+      </li>
+    </div>
+    <div class="message_template">
+      <li class="message">
+        <!-- <div class="avatar"></div> -->
+        <div class="text_wrapper">
+          <div class="text"></div>
+        </div>
+      </li>
+    </div>
   </div>
 
   <!-- JavaScript -->
@@ -78,6 +89,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-auth.js"></script>
   <script src="https://unpkg.com/brain.js@2.0.0-beta.2/dist/brain-browser.min.js"></script>
   <script type="text/javascript" src="js/config.js"></script>
   <script type="text/javascript" src="js/scripts.js"></script>
