@@ -43,9 +43,15 @@ $(document).ready(function() {
 
   //***********Machine learning**************
   var net = new brain.NeuralNetwork({
-    activation: 'sigmoid',
-    iterations: 128,
-    learningRate: 0.9
+    iterations: 20000, // the maximum times to iterate the training data --> number greater than 0
+    errorThresh: 0.005, // the acceptable error percentage from training data --> number between 0 and 1
+    log: false, // true to use console.log, when a function is supplied it is used --> Either true or a function
+    logPeriod: 10, // iterations between logging out --> number greater than 0
+    learningRate: 0.3, // scales with delta to effect training rate --> number between 0 and 1
+    momentum: 0.1, // scales with next layer's change value --> number between 0 and 1
+    callback: null, // a periodic call back that can be triggered while training --> null or function
+    callbackPeriod: 10, // the number of iterations through the training data between callback calls --> number greater than 0
+    timeout: Infinity
   });
   var trainData = [];
   var maxLength = 0;
@@ -223,9 +229,15 @@ $(document).ready(function() {
         botTalkRef.push().set($('.train_input').val());
 
         net = new brain.NeuralNetwork({
-          activation: 'sigmoid',
-          iterations: 128,
-          learningRate: 0.9
+          iterations: 20000, // the maximum times to iterate the training data --> number greater than 0
+          errorThresh: 0.005, // the acceptable error percentage from training data --> number between 0 and 1
+          log: false, // true to use console.log, when a function is supplied it is used --> Either true or a function
+          logPeriod: 10, // iterations between logging out --> number greater than 0
+          learningRate: 0.3, // scales with delta to effect training rate --> number between 0 and 1
+          momentum: 0.1, // scales with next layer's change value --> number between 0 and 1
+          callback: null, // a periodic call back that can be triggered while training --> null or function
+          callbackPeriod: 10, // the number of iterations through the training data between callback calls --> number greater than 0
+          timeout: Infinity
         });
 
         //Training the AI
