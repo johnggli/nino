@@ -1,5 +1,5 @@
-<h1 align="center">:speech_balloon: Nino - AI Chatbot</h1>
-<h3 align="center">An artificial intelligence chatbot made with html, css and javascript.</h3>
+<h1 align="center">💬 Nino - AI Chatbot</h1>
+<h3 align="center">An artificial intelligence chatbot able to learn. Made with html, css, javascript and firebase.</h3>
 
 <p align="center">
   <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/JohnEmerson1406/nino?color=%23FF669D">
@@ -16,9 +16,10 @@
 </p>
 
 <p align="center">
-  <a href="#bulb-about-the-project">About the project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#rocket-getting-started">Getting started</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#star2-extras">Get in touch</a>
+  <a href="#-about-the-project">About the project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-getting-started">Getting started</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-how-to-contribute">How to contribute</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-license">License</a>
 </p>
 
 ---
@@ -29,13 +30,13 @@
 
 ---
 
-## :bulb: About the project
+## 💡 About the project
 
 - This is an open source project of an artificial intelligence chatbot capable of learning new answers. This project was done using html, css (Bootstrap 4), javascript (JQuery) and Firebase.
 
 - [Live demo](https://ninoai.netlify.app)
 
-## :rocket: Getting started
+## 🚀 Getting started
 
 - First, go to the [Firebase Console](https://console.firebase.google.com) and create a new project.
 - Once created, click on `add app` and select the `web` option, give the app a nickname and then copy the app’s configuration, which looks something like this:
@@ -68,10 +69,19 @@ var config = {
 
 ---
 
-## :star2: Extras
-- [Shields.io](https://shields.io/)
-- [Github Emojis](https://gist.github.com/rxaviers/7360908)
+## 🤔 How to contribute
+
+- Fork this repository;
+- Create a branch with your feature: `git checkout -b my-feature`;
+- Commit your changes: `git commit -m "feat: my new feature"`;
+- Push to your branch: `git push origin my-feature`.
+
+Once your pull request has been merged, you can delete your branch.
+
+## 📝 License
+
+This project is under the MIT license. See the [LICENSE](LICENSE.md) file for more details.
 
 ---
 
-Made with ♥ by John Emerson :wave: [Get in touch](https://johnemerson1406.github.io/linktree)
+Made with ❤️ by John Emerson :wave: [Get in touch](https://johnemerson1406.github.io/linktree)
