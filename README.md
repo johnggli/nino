@@ -67,8 +67,6 @@ var config = {
 ```
 - Now, open the `index.html` file in your browser and have fun!
 
----
-
 ## 🤔 How to contribute
 
 - Fork this repository;
