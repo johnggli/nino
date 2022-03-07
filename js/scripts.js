@@ -41,6 +41,7 @@ $(document).ready(function() {
     })
     .catch((error) => {
       // An error happened.
+      $('.loading').hide();
       var errorMessage = error.message;
       alert('Error: ' + errorMessage);
     });
@@ -60,6 +61,7 @@ $(document).ready(function() {
     })
     .catch((error) => {
       // An error happened.
+      $('.loading').hide();
       var errorMessage = error.message;
       alert('Error: ' + errorMessage);
     });
