@@ -259,22 +259,9 @@ $(document).ready(function() {
         $('.message_area').show();
       })
 
-      function successfulTrained() {
-        $('.edit_answer').hide();
-
-        message_side = 'left';
-
-        var message = $($('.message_template').clone().html());
-
-        message.addClass(message_side).find('.text').html('All right! Thanks for making me smarter!');
-
-        $('.messages').append(message);
-
-        message.addClass('appeared');
-
-        $('.messages').animate({
-          scrollTop: $('.messages').prop('scrollHeight')
-        }, 300);
+      function successfulTrained(input) {
+        $('.messages').children().last().children().last().children().last().css('color', '#121212');
+        $('.messages').children().last().children().last().children().last().text(input);
       }
 
       function verifyTrain() {
@@ -303,7 +290,7 @@ $(document).ready(function() {
           var jsonDataRef = firebase.database().ref('users/' + uid + '/jsonData');
           jsonDataRef.set(JSON.stringify(toJson));
 
-          successfulTrained();
+          successfulTrained(input);
 
           $('.message_input').val('');
           $('.train_input').val('');
